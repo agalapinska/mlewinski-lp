@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PimpMyAnalytics — newsletter dla tych, którzy chcą rozumieć, dokąd zmierza marketing</title>
+<meta name="description" content="Raz w miesiącu: co umrze w marketingu, co jest niedoceniane, co przeceniane — i jedno zjawisko, które widzę u klientów. Bez newsów. Bez przeglądu linków. Bez kopiowania LinkedIna." />
+
+<!-- Open Graph / social -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Patrzysz na marketing przez zły model." />
+<meta property="og:description" content="PimpMyAnalytics — newsletter dla ludzi, którzy chcą rozumieć, dokąd zmierza marketing, a nie tylko klikać po raportach. Raz w miesiącu." />
+<meta property="og:image" content="og-image.png" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --paper:#FAF7F0;          /* tło strony */
+    --paper-raised:#FEFBF4;   /* podniesione boksy */
+    --white:#FFFFFF;
+    --ink:#0E0E0E;
+    --ink-2:#171717;
+    --gray:#646464;
+    --gray-2:#8A867C;
+    --line:#E7E1D5;           /* delikatne obramowania */
+    --line-soft:#EFEADF;
+    --yellow:#FFC820;
+    --yellow-deep:#FFBF00;
+    --yellow-soft:#FFF4D1;
+
+    --shadow:0 14px 40px rgba(20,16,4,.08);
+    --shadow-sm:0 6px 18px rgba(20,16,4,.06);
+    --r:6px;        /* karty */
+    --r-sm:4px;     /* przyciski, inputy, tagi */
+    --maxw:1140px;
+    --font:"Inter",system-ui,-apple-system,sans-serif;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;background:var(--paper);color:var(--ink);
+    font-family:var(--font);font-size:17px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  }
+  a{color:inherit;}
+  img{max-width:100%;display:block;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px;}
+
+  h1,h2,h3{font-weight:800;line-height:1.05;letter-spacing:-.025em;margin:0;}
+  h1{font-size:clamp(2.5rem,6vw,4.3rem);line-height:1.2;}
+  h2{font-size:clamp(1.9rem,4.2vw,3rem);}
+  h3{font-size:1.2rem;font-weight:700;letter-spacing:-.01em;}
+  p{margin:0 0 1rem;}
+  .lead{font-size:clamp(1.08rem,2vw,1.3rem);color:var(--gray);line-height:1.55;font-weight:400;}
+
+  .eyebrow{
+    font-size:.78rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--gray);display:inline-flex;align-items:center;gap:.65em;
+  }
+  .eyebrow::before{content:"";width:24px;height:3px;background:var(--yellow);border-radius:2px;display:inline-block;}
+
+  /* żółty marker na tekście — sygnaturowy zabieg z oryginału */
+  .hl{background:var(--yellow);color:var(--ink);padding:.02em .14em;border-radius:2px;
+    -webkit-box-decoration-break:clone;box-decoration-break:clone;font-weight:800;}
+  /* podświetlenie w hero sterowane scrollem (wypełnienie od lewej) */
+  .hero h1 .hl{
+    background:none;
+    background-image:linear-gradient(var(--yellow),var(--yellow));
+    background-repeat:no-repeat;
+    background-position:left center;
+    background-size:var(--hl,0%) 100%;
+    transition:none;
+  }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:.5em;
+    font-family:var(--font);font-weight:700;font-size:1rem;
+    padding:14px 26px;border:none;border-radius:var(--r-sm);
+    background:var(--yellow);color:var(--ink);cursor:pointer;text-decoration:none;white-space:nowrap;
+    box-shadow:var(--shadow-sm);transition:transform .14s ease, box-shadow .14s ease, background .15s ease;
+  }
+  .btn:hover{background:var(--yellow-deep);transform:translateY(-2px);box-shadow:0 12px 26px rgba(255,191,0,.34);}
+  .btn:active{transform:translateY(0);}
+  .btn-dark{background:var(--ink);color:var(--white);}
+  .btn-dark:hover{background:#000;box-shadow:0 12px 26px rgba(0,0,0,.22);}
+
+  /* ---------- Header ---------- */
+  header.site{position:sticky;top:0;z-index:50;background:rgba(250,247,240,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line);}
+  .nav{display:flex;align-items:center;justify-content:space-between;height:66px;}
+  .logo{font-weight:800;font-size:1.12rem;letter-spacing:-.02em;text-decoration:none;display:flex;align-items:center;gap:.5em;}
+  .logo .dot{width:10px;height:10px;border-radius:50%;background:var(--yellow);display:inline-block;box-shadow:0 0 0 3px rgba(255,200,32,.25);}
+  .nav .meta{font-size:.78rem;font-weight:600;letter-spacing:.04em;color:var(--gray);}
+  @media(max-width:760px){.nav .meta{display:none;}}
+
+  /* ---------- Hero ---------- */
+  .hero{padding:79px 0 38px;}
+  .hero-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:54px;align-items:center;}
+  .hero-single > div{max-width:780px;}
+  .hero-single .lead{max-width:680px;}
+  .hero-single .q-line{max-width:600px;}
+  .hero h1{margin:18px 0 22px;}
+  .q-line{font-size:.95rem;color:var(--ink);background:var(--paper-raised);border:1px solid var(--line);
+    border-left:4px solid var(--yellow);padding:14px 18px;margin:22px 0 26px;border-radius:var(--r-sm);line-height:1.5;
+    display:flex;gap:13px;align-items:flex-start;}
+  .q-line strong{font-weight:700;}
+  .q-num{flex:0 0 auto;font-weight:800;color:var(--ink);background:var(--yellow);border-radius:var(--r-sm);
+    padding:2px 9px;font-size:.85rem;line-height:1.5;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px;}
+  .chip{font-size:.76rem;font-weight:600;letter-spacing:.02em;border:1px solid var(--line);
+    border-radius:var(--r-sm);padding:7px 13px;background:var(--white);color:var(--ink);}
+  .chip .d{display:inline-block;width:8px;height:8px;border-radius:2px;margin-right:7px;vertical-align:middle;}
+  .chip .d.umrze{background:var(--ink);} .chip .d.nied{background:var(--yellow);} .chip .d.prze{background:#fff;border:1.5px solid var(--ink);}
+
+  /* mock „wydanie" w hero */
+  .issue-card{background:var(--white);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);overflow:hidden;}
+  .issue-card .top{display:flex;justify-content:space-between;align-items:center;padding:15px 20px;
+    background:var(--ink);color:var(--white);font-size:.72rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase;}
+  .issue-card .top .pill{background:var(--yellow);color:var(--ink);padding:4px 10px;border-radius:var(--r-sm);font-weight:700;}
+  .issue-card .body{padding:6px 20px 14px;}
+  .issue-row{display:flex;gap:13px;padding:14px 0;border-bottom:1px solid var(--line-soft);align-items:flex-start;}
+  .issue-row:last-child{border-bottom:0;}
+  .issue-row p{margin:0;font-size:.92rem;line-height:1.4;font-weight:500;}
+
+  /* pełnoszeroki podgląd wydania pod hero */
+  .issue-feature{padding:46px 0 64px;}
+  .issue-card--wide{box-shadow:var(--shadow);}
+  .issue-card--wide .top{padding:16px 26px;}
+  .issue-card--wide .body{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;padding:0;background:var(--line-soft);}
+  .issue-card--wide .issue-row{flex-direction:column;align-items:flex-start;gap:14px;padding:28px 26px;background:var(--white);border:0;}
+  .issue-card--wide .issue-row p{font-size:1.02rem;line-height:1.45;}
+
+  /* tagi — w obrębie palety: czerń / żółty / kontur */
+  .tag{font-size:.6rem;font-weight:700;letter-spacing:.05em;padding:4px 8px;border-radius:var(--r-sm);
+    height:fit-content;white-space:nowrap;text-transform:uppercase;}
+  .tag.umrze{background:var(--ink);color:var(--white);}
+  .tag.nied{background:var(--yellow);color:var(--ink);}
+  .tag.prze{background:transparent;color:var(--ink);border:1.5px solid var(--ink);}
+  .tag.klient{background:var(--ink);color:var(--yellow);}
+
+  /* ---------- Signup form ---------- */
+  .signup{margin-top:6px;}
+  .signup form{display:flex;gap:10px;flex-wrap:wrap;max-width:520px;}
+  .signup input[type=email]{flex:1 1 240px;min-width:0;font-family:var(--font);font-size:1rem;
+    padding:14px 16px;border:1px solid var(--line);border-radius:var(--r-sm);background:var(--white);color:var(--ink);}
+  .signup input[type=email]::placeholder{color:var(--gray-2);}
+  .signup input[type=email]:focus{outline:3px solid rgba(255,200,32,.5);outline-offset:0;border-color:var(--yellow-deep);}
+  .microcopy{font-size:.82rem;color:var(--gray);margin-top:12px;display:flex;align-items:center;gap:7px;}
+  .microcopy svg{flex:0 0 auto;color:var(--yellow-deep);}
+  .form-msg{margin-top:12px;font-weight:600;display:none;}
+  .form-msg.ok{display:block;color:#1E8A5B;} /* zielony tylko jako status sukcesu */
+  .form-msg.err{display:block;color:#C0392B;}
+
+  /* ---------- Sections ---------- */
+  section{padding:78px 0;}
+  .sec-label{font-size:.78rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--gray);
+    margin-bottom:16px;display:flex;gap:11px;align-items:center;}
+  .sec-label .n{color:var(--ink);background:var(--yellow);border-radius:3px;padding:1px 7px;}
+
+  .band{background:var(--ink);color:var(--paper);}
+  .band .sec-label,.band .lead{color:rgba(250,247,240,.66);}
+  .band .sec-label .n{color:var(--ink);}
+  .band h2{color:var(--white);}
+  .band .eyebrow{color:rgba(250,247,240,.66);}
+
+  /* ticker */
+  .ticker{background:var(--ink);color:var(--white);overflow:hidden;white-space:nowrap;padding:13px 0;border-top:1px solid #000;border-bottom:1px solid #000;}
+  .ticker .track{display:inline-block;animation:scroll 34s linear infinite;font-size:.84rem;letter-spacing:.05em;text-transform:uppercase;font-weight:700;}
+  .ticker .track span{padding:0 24px;}
+  .ticker .track span::before{content:"●";color:var(--yellow);margin-right:24px;font-size:.7em;vertical-align:middle;}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media(prefers-reduced-motion:reduce){.ticker .track{animation:none;}}
+
+  /* NIE / TAK */
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:34px;}
+  .vs .col{border:1px solid var(--line);border-radius:var(--r);padding:28px;background:var(--white);box-shadow:var(--shadow-sm);}
+  .vs .col.yes{box-shadow:var(--shadow);border-color:var(--yellow);}
+  .vs h3{margin-bottom:18px;display:flex;align-items:center;gap:10px;}
+  .vs .badge{font-size:.66rem;font-weight:700;letter-spacing:.06em;padding:5px 10px;border-radius:var(--r-sm);text-transform:uppercase;}
+  .vs .no .badge{background:var(--paper);color:var(--gray);border:1px solid var(--line);}
+  .vs .yes .badge{background:var(--yellow);color:var(--ink);}
+  .vs ul{list-style:none;margin:0;padding:0;}
+  .vs li{padding:12px 0;border-bottom:1px solid var(--line-soft);display:flex;gap:12px;align-items:flex-start;font-weight:500;}
+  .vs li:last-child{border-bottom:0;}
+  .vs li .ic{flex:0 0 auto;font-weight:800;width:20px;height:20px;border-radius:3px;display:inline-flex;align-items:center;justify-content:center;font-size:.72rem;margin-top:1px;}
+  .vs .no li .ic{background:var(--paper);color:var(--gray);border:1px solid var(--line);}
+  .vs .yes li .ic{background:var(--yellow);color:var(--ink);}
+
+  /* 3 filary */
+  .pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:36px;}
+  .pillar{border:1px solid var(--line);border-radius:var(--r);background:var(--white);box-shadow:var(--shadow-sm);
+    padding:28px;display:flex;flex-direction:column;color:var(--ink);transition:transform .14s ease,box-shadow .14s ease;}
+  .pillar:hover{transform:translateY(-4px);box-shadow:var(--shadow);}
+  .pillar .ptag{font-size:.7rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    padding:6px 12px;border-radius:var(--r-sm);width:fit-content;margin-bottom:18px;}
+  .pillar.p1 .ptag{background:var(--ink);color:var(--white);}
+  .pillar.p2 .ptag{background:var(--yellow);color:var(--ink);}
+  .pillar.p3 .ptag{background:transparent;color:var(--ink);border:1.5px solid var(--ink);}
+  .pillar h3{margin-bottom:11px;}
+  .pillar .desc{color:var(--gray);font-size:.95rem;margin-bottom:18px;}
+  .pillar ul{list-style:none;margin:0;padding:0;}
+  .pillar li{padding:9px 0;border-top:1px solid var(--line-soft);font-size:.9rem;font-weight:500;display:flex;gap:10px;align-items:flex-start;}
+  .pillar li .b{font-weight:800;font-size:.78rem;color:var(--ink);background:var(--yellow);border-radius:3px;padding:1px 6px;height:fit-content;}
+
+  .plus{margin-top:24px;border:1px solid var(--line);border-left:5px solid var(--yellow);border-radius:var(--r);
+    padding:24px 28px;background:var(--paper-raised);display:flex;gap:18px;align-items:center;color:var(--ink);box-shadow:var(--shadow-sm);}
+  .plus .big{font-weight:800;font-size:2.1rem;color:var(--ink);line-height:1;background:var(--yellow);border-radius:var(--r-sm);padding:10px 14px;}
+  .plus p{margin:0;font-weight:500;}
+
+  /* sample issue / spis treści (na ciemnym) */
+  .toc{border:1px solid rgba(250,247,240,.16);border-radius:var(--r);margin-top:34px;overflow:hidden;background:#000;}
+  .toc .toc-row{display:grid;grid-template-columns:auto auto 1fr;gap:18px;align-items:center;
+    padding:22px 24px;border-bottom:1px solid rgba(250,247,240,.12);}
+  .toc .toc-row:last-child{border-bottom:0;}
+  .toc .num{font-size:.82rem;font-weight:700;color:rgba(250,247,240,.4);}
+  .toc .ttag{font-size:.64rem;font-weight:700;letter-spacing:.05em;padding:5px 9px;border-radius:var(--r-sm);white-space:nowrap;text-transform:uppercase;}
+  .toc .ttag.umrze{background:var(--yellow);color:var(--ink);}
+  .toc .ttag.nied{background:var(--white);color:var(--ink);}
+  .toc .ttag.prze{background:transparent;color:var(--yellow);border:1.5px solid var(--yellow);}
+  .toc .ttag.klient{background:var(--yellow);color:var(--ink);}
+  .toc .ttl{font-size:1.12rem;line-height:1.35;color:var(--white);font-weight:500;}
+
+  /* autor / theses */
+  .author{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center;}
+  .author .photo{border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);background:var(--paper-raised);
+    aspect-ratio:4/5;display:flex;align-items:center;justify-content:center;font-size:.78rem;color:var(--gray);text-align:center;padding:20px;}
+  .theses{margin-top:26px;display:flex;flex-direction:column;gap:14px;}
+  .thesis{font-size:1.22rem;line-height:1.4;font-weight:600;font-style:italic;border-left:4px solid var(--yellow);padding-left:18px;}
+
+  /* dla kogo / nie kogo */
+  .who{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:34px;}
+  .who .box{border:1px solid var(--line);border-radius:var(--r);padding:30px;}
+  .who .box.for{background:var(--white);box-shadow:var(--shadow);border-color:var(--yellow);}
+  .who .box.notfor{background:var(--paper-raised);box-shadow:var(--shadow-sm);}
+  .who h3{margin-bottom:8px;}
+  .who .sub{color:var(--gray);font-size:.92rem;margin-bottom:20px;}
+  .who ul{list-style:none;margin:0;padding:0;}
+  .who li{padding:12px 0;border-bottom:1px solid var(--line-soft);display:flex;gap:12px;align-items:flex-start;font-weight:500;font-size:.96rem;}
+  .who li:last-child{border-bottom:0;}
+  .who li .ic{flex:0 0 auto;font-weight:800;width:21px;height:21px;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;font-size:.74rem;margin-top:1px;}
+  .who .for li .ic{background:var(--yellow);color:var(--ink);}
+  .who .notfor li .ic{background:var(--paper);color:var(--gray);border:1px solid var(--line);}
+
+  /* FAQ */
+  .faq{margin-top:30px;border-top:1px solid var(--line);}
+  details.qa{border-bottom:1px solid var(--line);}
+  details.qa summary{cursor:pointer;list-style:none;padding:22px 6px;font-weight:700;font-size:1.1rem;
+    display:flex;justify-content:space-between;align-items:center;gap:16px;}
+  details.qa summary::-webkit-details-marker{display:none;}
+  details.qa summary .pm{font-weight:800;font-size:1.5rem;color:var(--ink);background:var(--yellow);width:30px;height:30px;
+    border-radius:var(--r-sm);display:inline-flex;align-items:center;justify-content:center;line-height:1;transition:transform .2s;flex:0 0 auto;}
+  details.qa[open] summary .pm{transform:rotate(45deg);}
+  details.qa .ans{padding:0 6px 22px;color:var(--gray);max-width:760px;}
+
+  /* final CTA */
+  .final{text-align:center;}
+  .final .signup form{margin:30px auto 0;justify-content:center;}
+  .final .microcopy{justify-content:center;color:rgba(250,247,240,.66);}
+
+  /* footer */
+  footer.site{background:var(--ink);color:rgba(250,247,240,.7);padding:50px 0 40px;}
+  footer .frow{display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap;}
+  footer .logo{color:var(--white);}
+  footer a{color:rgba(250,247,240,.7);text-decoration:none;}
+  footer a:hover{color:var(--white);text-decoration:underline;}
+  footer .links{display:flex;gap:22px;font-size:.88rem;flex-wrap:wrap;}
+  footer .no-no{font-size:.78rem;letter-spacing:.04em;margin-top:30px;padding-top:24px;
+    border-top:1px solid rgba(250,247,240,.16);color:rgba(250,247,240,.5);text-transform:uppercase;font-weight:600;}
+
+  /* sticky mobile CTA */
+  .sticky-cta{position:fixed;left:0;right:0;bottom:0;z-index:60;display:none;background:var(--paper);
+    border-top:1px solid var(--line);padding:12px 16px;box-shadow:0 -6px 20px rgba(0,0,0,.08);}
+  .sticky-cta .btn{width:100%;}
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:880px){
+    .hero-grid{grid-template-columns:1fr;gap:38px;}
+    .issue-card--wide .body{grid-template-columns:1fr 1fr;}
+    .pillars{grid-template-columns:1fr;}
+    .vs{grid-template-columns:1fr;}
+    .who{grid-template-columns:1fr;}
+    .author{grid-template-columns:1fr;gap:30px;}
+    .author .photo{max-width:300px;}
+    .toc .toc-row{grid-template-columns:auto 1fr;}
+    .toc .num{grid-row:1;}
+  }
+  @media(max-width:560px){
+    section{padding:56px 0;}
+    .hero{padding:40px 0 30px;}
+    .issue-card--wide .body{grid-template-columns:1fr;}
+    .signup form{flex-direction:column;}
+    .signup .btn{width:100%;}
+    .sticky-cta{display:block;}
+    body{padding-bottom:74px;}
+    .plus{flex-direction:column;align-items:flex-start;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site">
+  <div class="wrap nav">
+    <a href="#top" class="logo"><span class="dot"></span>PimpMyAnalytics</a>
+    <span class="meta">Newsletter · raz w miesiącu</span>
+    <a href="#zapis" class="btn" style="padding:9px 18px;font-size:.9rem;box-shadow:none;">Zapisz się</a>
+  </div>
+</header>
+
+<a id="top"></a>
+
+<!-- ============ HERO (above the fold) ============ -->
+<section class="hero">
+  <div class="wrap hero-single">
+    <div>
+      <span class="eyebrow">Newsletter · raz w miesiącu · bez spamu</span>
+      <h1>Patrzysz na marketing<br><span class="hl">przez zły model.</span></h1>
+      <p class="lead">PimpMyAnalytics to newsletter dla ludzi, którzy chcą rozumieć, <strong style="color:var(--ink)">dokąd zmierza marketing</strong>, a nie tylko klikać po raportach.</p>
+
+      <div class="q-line"><span class="q-num">#1</span><span>Omawiam jedno zjawisko, które widzę u klientów i tłumaczę, dlaczego może mieć znaczenie za 12 miesięcy. To część, której nie znajdziesz nigdzie indziej, bo nie pochodzi z newsów, tylko z doświadczenia.</span></div>
+
+      <div class="signup" id="form-hero">
+        <form data-form>
+          <input type="email" name="email" placeholder="Twój adres e-mail" required aria-label="Adres e-mail" />
+          <button class="btn" type="submit">Zapisz mnie →</button>
+        </form>
+        <p class="microcopy">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6"><path d="M20 6L9 17l-5-5"/></svg>
+          Jeden mail miesięcznie. Zero spamu. Wypisujesz się jednym kliknięciem.
+        </p>
+        <p class="form-msg" data-msg></p>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ============ TICKER ============ -->
+<div class="ticker" aria-hidden="true">
+  <div class="track">
+    <span>Ruch to nie wynik</span><span>Atrybucja to nie prawda</span><span>Performance bez marki drożeje</span><span>Dashboard ≠ decyzja</span><span>Branded search to termometr marki</span>
+    <span>Ruch to nie wynik</span><span>Atrybucja to nie prawda</span><span>Performance bez marki drożeje</span><span>Dashboard ≠ decyzja</span><span>Branded search to termometr marki</span>
+  </div>
+</div>
+
+<!-- ============ 3 FILARY ============ -->
+<section class="band">
+  <div class="wrap">
+    <div class="sec-label"><span class="n">01</span> Co dostajesz raz w miesiącu</div>
+    <h2>Trzy pytania. Jedna mocna teza.</h2>
+    <p class="lead" style="max-width:640px;margin-top:16px;">
+      Każde wydanie ogląda marketing z trzech stron — i dorzuca jedno zjawisko, które widzę u klientów, zanim trafi do raportów.
+    </p>
+
+    <div class="pillars">
+      <div class="pillar p1">
+        <span class="ptag">Co umrze?</span>
+        <h3>Co umrze w marketingu?</h3>
+        <p class="desc">Rzeczy, które wszyscy robią z rozpędu — i które właśnie przestają działać.</p>
+        <ul>
+          <li><span class="b">01</span> Raportowanie ruchu jako głównego KPI</li>
+          <li><span class="b">02</span> Atrybucja jako odpowiedź na wszystkie pytania</li>
+          <li><span class="b">03</span> Marketing oparty wyłącznie o performance</li>
+          <li><span class="b">04</span> Dashboardy z 50 wykresami</li>
+        </ul>
+      </div>
+      <div class="pillar p2">
+        <span class="ptag">Co niedoceniane?</span>
+        <h3>Co jest niedoceniane?</h3>
+        <p class="desc">Rzeczy, które robią różnicę — a nie dostają uwagi, na jaką zasługują.</p>
+        <ul>
+          <li><span class="b">01</span> Branded search</li>
+          <li><span class="b">02</span> Email marketing</li>
+          <li><span class="b">03</span> Analiza trendów zamiast pojedynczych kampanii</li>
+          <li><span class="b">04</span> BigQuery i pomiar całego lejka</li>
+          <li><span class="b">05</span> Efekty inkrementalne</li>
+        </ul>
+      </div>
+      <div class="pillar p3">
+        <span class="ptag">Co przeceniane?</span>
+        <h3>Co jest przeceniane?</h3>
+        <p class="desc">Rzeczy, które świetnie wyglądają na slajdzie, ale rzadko pomagają podjąć lepszą decyzję.</p>
+        <ul>
+          <li><span class="b">01</span> Last-click jako „prawda" o kampanii</li>
+          <li><span class="b">02</span> Vanity metrics na pierwszym slajdzie</li>
+          <li><span class="b">03</span> Raporty robione, bo „zawsze tak było"</li>
+          <li><span class="b">04</span> Kolejny dashboard zamiast decyzji</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="plus">
+      <span class="big">+1</span>
+      <p><strong>Jedno zjawisko, które widzę u klientów</strong> — i dlaczego może mieć znaczenie za 12 miesięcy. To część, której nie znajdziesz nigdzie indziej, bo nie pochodzi z newsów, tylko z roboty.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TO NIE JEST KOLEJNY NEWSLETTER O GA4 ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-label"><span class="n">02</span> Pozycjonowanie</div>
+    <h2>To nie jest kolejny<br>newsletter o GA4.</h2>
+    <p class="lead" style="max-width:680px;margin-top:18px;">
+      Nie nauczę Cię, gdzie kliknąć w raporcie. Pokażę Ci, dlaczego patrzysz na <span class="hl">złe rzeczy</span> — i co naprawdę zacznie mieć znaczenie. Mniej narzędzia, więcej modelu myślenia.
+    </p>
+
+    <div class="vs">
+      <div class="col no">
+        <h3><span class="badge">CZEGO TU NIE MA</span></h3>
+        <ul>
+          <li><span class="ic">✕</span> Newsów z branży</li>
+          <li><span class="ic">✕</span> Przeglądu 15 linków „do poczytania"</li>
+          <li><span class="ic">✕</span> Skopiowanego wczorajszego LinkedIna</li>
+          <li><span class="ic">✕</span> Kursu „gdzie kliknąć w GA4"</li>
+          <li><span class="ic">✕</span> 50 wykresów, z których nic nie wynika</li>
+        </ul>
+      </div>
+      <div class="col yes">
+        <h3><span class="badge">CO DOSTAJESZ</span></h3>
+        <ul>
+          <li><span class="ic">→</span> Tezy, za którymi stoi konkret</li>
+          <li><span class="ic">→</span> Prognozy, nie podsumowania</li>
+          <li><span class="ic">→</span> Obserwacje prosto z pracy z klientami</li>
+          <li><span class="ic">→</span> Krytyczne myślenie zamiast hype'u</li>
+          <li><span class="ic">→</span> Prosty język bez marketingowego nadęcia</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PEŁNOSZEROKI PODGLĄD WYDANIA ============ -->
+<section class="issue-feature">
+  <div class="wrap">
+    <aside class="issue-card issue-card--wide" aria-hidden="true">
+      <div class="top">
+        <span>Wydanie #07</span>
+        <span class="pill">Raz w miesiącu</span>
+      </div>
+      <div class="body">
+        <div class="issue-row"><span class="tag umrze">UMRZE</span><p>Atrybucja last-click jeszcze oddycha. Ale to już respirator.</p></div>
+        <div class="issue-row"><span class="tag nied">NIEDOCENIANE</span><p>Branded search to nie SEO. To termometr Twojej marki.</p></div>
+        <div class="issue-row"><span class="tag prze">PRZECENIANE</span><p>Dashboard z 50 wykresami to teatr, nie decyzja.</p></div>
+        <div class="issue-row"><span class="tag klient">U KLIENTA</span><p>Widzę to u trzech naraz. Za rok zobaczysz to u siebie.</p></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ ZAJRZYJ DO ŚRODKA ============ -->
+<section class="band">
+  <div class="wrap">
+    <div class="sec-label"><span class="n">03</span> Zajrzyj do środka</div>
+    <h2>Tak wygląda jedno wydanie.</h2>
+    <p class="lead" style="max-width:660px;margin-top:16px;">Cztery tezy. Bez ściemy, bez ozdobników. Tak brzmi PMA, zanim się zapiszesz.</p>
+
+    <div class="toc">
+      <div class="toc-row">
+        <span class="num">01</span><span class="ttag umrze">UMRZE</span>
+        <span class="ttl">„Atrybucja last-click jeszcze oddycha — ale podłączyliśmy ją już do respiratora."</span>
+      </div>
+      <div class="toc-row">
+        <span class="num">02</span><span class="ttag nied">NIEDOCENIANE</span>
+        <span class="ttl">„Branded search to nie SEO. To termometr, który pokazuje, czy Twoja marka w ogóle żyje."</span>
+      </div>
+      <div class="toc-row">
+        <span class="num">03</span><span class="ttag prze">PRZECENIANE</span>
+        <span class="ttl">„Twój dashboard z 50 wykresami to teatr. Decyzję i tak podejmujesz na trzech liczbach."</span>
+      </div>
+      <div class="toc-row">
+        <span class="num">04</span><span class="ttag klient">U KLIENTA</span>
+        <span class="ttl">„Widzę to u trzech klientów naraz. Opisuję, co to jest — i czemu za rok zobaczysz to u siebie."</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ AUTOR ============ -->
+<section style="background:var(--paper-raised);">
+  <div class="wrap author">
+    <div class="photo">
+      [ Tu zdjęcie autora ]<br>portret, nie stock<br>4:5
+    </div>
+    <div>
+      <div class="sec-label"><span class="n">04</span> Skąd to wiem</div>
+      <h2>Piszę to, czego nie powiem<br>na slajdzie u klienta.</h2>
+      <p class="lead" style="margin-top:16px;">
+        Od lat siedzę w danych i marketingu — pracuję z firmami, oglądam z bliska, co działa, a co tylko <em>wygląda</em>, że działa. PimpMyAnalytics to miejsce, gdzie mówię to wprost: bez ściemy, prostym językiem, z konkretną tezą.
+      </p>
+      <div class="theses">
+        <p class="thesis">„Ruch to nie wynik. Ruch to koszt, który czasem się zwraca."</p>
+        <p class="thesis">„Atrybucja mówi Ci, kto był ostatni. Nie mówi, czy w ogóle było warto."</p>
+        <p class="thesis">„Performance bez marki to kupowanie tych samych ludzi w kółko — coraz drożej."</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DLA KOGO / DLA KOGO NIE ============ -->
+<section>
+  <div class="wrap">
+    <div class="sec-label"><span class="n">05</span> Dla kogo</div>
+    <h2>Newsletter dla tych, którzy<br>myślą o marketingu rok do przodu.</h2>
+
+    <div class="who">
+      <div class="box for">
+        <h3>To jest dla Ciebie, jeśli jesteś…</h3>
+        <p class="sub">Nie chcesz tylko klikać po raportach — chcesz rozumieć model.</p>
+        <ul>
+          <li><span class="ic">✓</span> <strong>Właścicielem firmy</strong>, który chce wiedzieć, w co realnie warto wkładać budżet</li>
+          <li><span class="ic">✓</span> <strong>Dyrektorem marketingu</strong>, który musi obronić decyzje przed zarządem</li>
+          <li><span class="ic">✓</span> <strong>E-commerce managerem</strong>, który patrzy dalej niż jeden ROAS</li>
+          <li><span class="ic">✓</span> <strong>Specjalistą SEO</strong>, który chce rozumieć rolę marki, nie tylko fraz</li>
+          <li><span class="ic">✓</span> <strong>Osobą od brandingu</strong>, która chce mówić językiem danych</li>
+          <li><span class="ic">✓</span> <strong>Marketerem</strong>, który chce wiedzieć, co będzie działać za rok albo dwa</li>
+        </ul>
+      </div>
+      <div class="box notfor">
+        <h3>To nie jest dla Ciebie, jeśli…</h3>
+        <p class="sub">Wolę powiedzieć to teraz, niż zapchać Ci skrzynkę.</p>
+        <ul>
+          <li><span class="ic">✕</span> Szukasz instrukcji „gdzie kliknąć w GA4" — to nie tutaj</li>
+          <li><span class="ic">✕</span> Chcesz codziennej dawki newsów i branżowego szumu</li>
+          <li><span class="ic">✕</span> Wolisz usłyszeć, że robisz wszystko dobrze, niż że może nie</li>
+          <li><span class="ic">✕</span> Teza bez 12 przypisów to dla Ciebie herezja</li>
+          <li><span class="ic">✕</span> Liczysz na PDF, nagrania i „kurs w prezencie"</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section style="background:var(--paper-raised);">
+  <div class="wrap" style="max-width:840px;">
+    <div class="sec-label"><span class="n">06</span> Zanim się zapiszesz</div>
+    <h2>Krótkie konkrety.</h2>
+    <div class="faq">
+      <details class="qa"><summary>Ile to kosztuje? <span class="pm">+</span></summary>
+        <div class="ans">Zero złotych. Płacisz uwagą — raz w miesiącu.</div></details>
+      <details class="qa"><summary>Jak często piszesz? <span class="pm">+</span></summary>
+        <div class="ans">Raz w miesiącu. Bez wypełniaczy, bez „dorzucę jeszcze szybki mail w środę".</div></details>
+      <details class="qa"><summary>Będziesz mnie spamować? <span class="pm">+</span></summary>
+        <div class="ans">Nie. Jeden mail miesięcznie. Wypisujesz się jednym kliknięciem, bez tłumaczenia się.</div></details>
+      <details class="qa"><summary>To bardzo techniczne? <span class="pm">+</span></summary>
+        <div class="ans">Nie. Piszę prostym językiem — nawet o BigQuery czy efektach inkrementalnych. Jeśli coś wymaga kontekstu, to go daję.</div></details>
+      <details class="qa"><summary>Dostanę PDF / nagranie / kurs? <span class="pm">+</span></summary>
+        <div class="ans">Nie. To newsletter z opinią, nie lead magnet. Wartość jest w samych wydaniach, nie w prezencie za zapis.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="band final" id="zapis">
+  <div class="wrap" style="max-width:760px;">
+    <span class="eyebrow" style="justify-content:center;">Ostatni przystanek</span>
+    <h2 style="margin-top:18px;">Marketing zmienia model.<br><span class="hl">Lepiej wiedzieć wcześniej.</span></h2>
+    <p class="lead" style="margin-top:18px;">
+      Raz w miesiącu: <strong style="color:var(--white)">co umrze</strong>, <strong style="color:var(--white)">co niedoceniane</strong>, <strong style="color:var(--white)">co przeceniane</strong> — i jedno zjawisko, które widzę u klientów, zanim trafi do raportów.
+    </p>
+
+    <div class="signup" id="form-final">
+      <form data-form>
+        <input type="email" name="email" placeholder="Twój adres e-mail" required aria-label="Adres e-mail" />
+        <button class="btn" type="submit">Zapisuję się →</button>
+      </form>
+      <p class="microcopy">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" style="color:var(--yellow)"><path d="M20 6L9 17l-5-5"/></svg>
+        Bez newsów. Bez przeglądu linków. Bez kopiowania LinkedIna.
+      </p>
+      <p class="form-msg" data-msg></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="site">
+  <div class="wrap">
+    <div class="frow">
+      <a href="#top" class="logo"><span class="dot"></span>PimpMyAnalytics</a>
+      <div class="links">
+        <a href="#">Polityka prywatności</a>
+        <a href="#zapis">Zapisz się</a>
+        <a href="#">Wypisz się</a>
+        <a href="#" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <div class="no-no">Bez newsów · Bez przeglądu linków · Bez kopiowania LinkedIna · Raz w miesiącu</div>
+  </div>
+</footer>
+
+<div class="sticky-cta">
+  <a href="#zapis" class="btn">Zapisz się do PimpMyAnalytics →</a>
+</div>
+
+<script>
+  document.querySelectorAll('form[data-form]').forEach(function(form){
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      var email = form.querySelector('input[type=email]').value.trim();
+      var msg = form.parentElement.querySelector('[data-msg]');
+      if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)){
+        msg.className = 'form-msg err'; msg.textContent = 'Sprawdź adres — coś tu nie gra.'; return;
+      }
+      /* TODO — podłącz mailing (MailerLite / Brevo / ConvertKit / FreshMail): embed lub fetch do API,
+         double opt-in, zgoda RODO, przekazanie UTM ze źródła social. */
+      msg.className = 'form-msg ok';
+      msg.textContent = 'Jesteś na liście. Sprawdź skrzynkę i potwierdź zapis (double opt-in).';
+      form.reset();
+    });
+  });
+
+  var sticky = document.querySelector('.sticky-cta');
+  var finalCta = document.getElementById('zapis');
+  if('IntersectionObserver' in window && sticky && finalCta){
+    new IntersectionObserver(function(entries){
+      entries.forEach(function(en){
+        if(window.innerWidth <= 560){ sticky.style.display = en.isIntersecting ? 'none' : 'block'; }
+      });
+    },{threshold:.2}).observe(finalCta);
+  }
+
+  // Podświetlenie h1 sterowane scrollem (scrubbing, nie jednorazowa animacja)
+  (function(){
+    var hl = document.querySelector('.hero h1 .hl');
+    if(!hl) return;
+    var h1 = hl.closest('h1');
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+      hl.style.setProperty('--hl','100%'); return;
+    }
+    var RANGE = 1;
+    function measure(){
+      var base = h1.getBoundingClientRect().top + window.scrollY; // pozycja h1 od góry dokumentu
+      RANGE = Math.max(120, base + h1.offsetHeight);              // pełne wypełnienie zanim h1 zniknie u góry
+    }
+    var ticking = false;
+    function update(){
+      ticking = false;
+      var p = Math.min(1, Math.max(0, window.scrollY / RANGE));
+      hl.style.setProperty('--hl', (p*100).toFixed(2) + '%');
+    }
+    function onScroll(){ if(!ticking){ ticking = true; requestAnimationFrame(update); } }
+    measure(); update();
+    window.addEventListener('scroll', onScroll, {passive:true});
+    window.addEventListener('resize', function(){ measure(); update(); });
+  })();
+</script>
+</body>
+</html>
