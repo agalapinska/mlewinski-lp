@@ -70,9 +70,10 @@
   .nav{display:flex;align-items:center;justify-content:space-between;height:70px;}
   .logo{font-weight:900;font-size:1.18rem;letter-spacing:-.03em;text-decoration:none;display:flex;align-items:center;gap:.5em;}
   .logo .dot{width:11px;height:11px;border-radius:50%;background:var(--yellow);}
+  .nav .logo img{height:26px;width:auto;display:block;}
   .nav .cta-mini{display:flex;align-items:center;gap:18px;}
-  .nav .count{font-size:.82rem;font-weight:600;color:var(--gray);}
-  .nav .count b{color:var(--ink);}
+  .nav .count{font-size:16px;font-weight:400;color:#232320;}
+  .nav .count b{font-weight:400;color:#232320;}
   @media(max-width:720px){.nav .count{display:none;}}
 
   /* hero */
@@ -250,11 +251,11 @@
 <!-- HEADER -->
 <header class="site">
   <div class="wrap nav">
-    <a href="#top" class="logo"><span class="dot"></span>PimpMyAnalytics</a>
+    <a href="#top" class="logo" aria-label="Maciej Lewiński — strona główna"><img src="logo.svg" alt="Maciej Lewiński" /></a>
     <div class="cta-mini">
       <!-- TODO: podmień liczbę na realną; jeśli startujesz od zera, usuń ten licznik -->
       <span class="count">Czyta nas już <b data-subs>13&nbsp;000+</b></span>
-      <a href="#zapis" class="btn btn-yellow" style="padding:10px 20px;font-size:.92rem;">Zapisz się</a>
+      <a href="#zapis" class="btn btn-yellow" style="padding:11px 32px;font-size:15px;font-weight:600;border-radius:2px;box-shadow:none;">Zapisz się</a>
     </div>
   </div>
 </header>
