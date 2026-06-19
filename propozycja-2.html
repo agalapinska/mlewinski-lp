@@ -16,16 +16,19 @@
 
 <style>
   :root{
-    --paper:#FBF9F3;
-    --paper-2:#F4F0E6;
+    --paper:#FBFBFB;
+    --paper-2:#ECECED;
     --white:#FFFFFF;
-    --ink:#15140F;
-    --gray:#5C594F;
-    --gray-2:#908B7E;
-    --line:#ECE6D9;
-    --yellow:#FFC820;
-    --yellow-deep:#F5B800;
-    --yellow-soft:#FFF1C9;
+    --ink:#191919;
+    --gray:#565654;
+    --gray-2:#9A9A98;
+    --line:#E4E4E3;
+    --yellow:#FFC127;
+    --yellow-deep:#F0B400;
+    --yellow-soft:#FFF3D4;
+    --mint:#3DC9AE;
+    --mint-deep:#2FB79D;
+    --mint-soft:#E1F6F1;
     --shadow:0 18px 50px rgba(20,16,4,.07);
     --shadow-sm:0 8px 24px rgba(20,16,4,.05);
     --r:10px;
@@ -343,6 +346,31 @@
     .issue-form form{flex-direction:column;}
     .final .hero-form{max-width:none;}
   }
+
+  /* ===== KV refresh: lekki design + akcent mięta ===== */
+  .btn-mint{background:var(--mint);color:var(--ink);}
+  .btn-mint:hover{background:var(--mint-deep);box-shadow:0 14px 30px rgba(61,201,174,.38);}
+
+  .topbar{background:var(--mint);color:var(--ink);text-align:center;font-size:14px;font-weight:600;letter-spacing:.005em;padding:11px 20px;}
+  .topbar a{color:var(--ink);text-decoration:underline;text-underline-offset:2px;font-weight:700;}
+  .topbar a:hover{opacity:.7;}
+
+  /* Sample Issue → karta w kolorze akcentu (mięta), jaśniejsza */
+  .issue-card{background:var(--mint);box-shadow:0 18px 50px rgba(47,183,157,.18);}
+  .issue-top h2{color:var(--ink);}
+  .issue-q{color:rgba(25,25,25,.82);border-top:1px solid rgba(25,25,25,.14);}
+  .issue-form .proof{color:var(--ink);}
+  .issue-form .proof b{color:var(--ink);}
+  .issue-form .avatars span{border-color:var(--mint);}
+  .issue-form input[type=email]{border-color:transparent;}
+  .issue-form .microcopy{color:rgba(25,25,25,.62);}
+
+  /* Footer → jasny */
+  footer.site{background:var(--paper-2);color:var(--gray);}
+  .ft-tagline{color:var(--ink);}
+  footer .links a{color:var(--gray);}
+  footer .links a:hover{color:var(--ink);}
+  .ft-copy span{color:var(--gray);}
 </style>
 </head>
 <body>
@@ -356,6 +384,9 @@
   5) Mailing — <form> na embed/API (MailerLite/Brevo/ConvertKit) + double opt-in + UTM (TODO w skrypcie).
 -->
 
+<!-- TOP BAR -->
+<div class="topbar">Raz w miesiącu rozkładam marketing na czynniki — <a href="#zapis">dołącz do <b data-subs>13&nbsp;000+</b> marketerów →</a></div>
+
 <!-- HEADER -->
 <header class="site">
   <div class="wrap nav">
@@ -363,7 +394,7 @@
     <div class="cta-mini">
       <!-- TODO: podmień liczbę na realną; jeśli startujesz od zera, usuń ten licznik -->
       <span class="count">Czyta nas już <b data-subs>13&nbsp;000+</b></span>
-      <a href="#zapis" class="btn btn-yellow" style="padding:11px 32px;font-size:15px;font-weight:600;border-radius:2px;box-shadow:none;">Zapisz się</a>
+      <a href="#zapis" class="btn btn-mint" style="padding:11px 32px;font-size:15px;font-weight:600;border-radius:2px;box-shadow:none;">Zapisz się</a>
     </div>
   </div>
 </header>
