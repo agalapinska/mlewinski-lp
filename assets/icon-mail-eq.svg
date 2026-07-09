@@ -1,0 +1,10 @@
+<svg viewBox="0 0 51.37 32" xmlns="http://www.w3.org/2000/svg" width="51.37" height="32">
+  <defs>
+    <mask id="me0" maskUnits="userSpaceOnUse" style="mask-type:alpha"><path d="M0 0H37.123V31.597H0Z" fill="#000"/></mask>
+    <mask id="me1" maskUnits="userSpaceOnUse" style="mask-type:alpha"><path d="M0 0H34.36V26.245H0Z" fill="#000"/></mask>
+  </defs>
+  <path transform="matrix(1 0 0 1 7.063 14.064)" d="M0 0H11.424" fill="none" stroke="#15140F" stroke-width="1.512" stroke-miterlimit="10"/>
+  <path transform="matrix(1 0 0 1 7.063 18.477)" d="M0 0H11.424" fill="none" stroke="#15140F" stroke-width="1.512" stroke-miterlimit="10"/>
+  <g transform="matrix(1 0 0 1 14.063 0.146)"><g mask="url(#me0)"><g transform="matrix(1 0 0 1 7.047 7.038)"><path transform="matrix(-0.983 0.185 0.186 0.983 20.427 0)" d="M0 0H20.787V13.905H0.001Z" fill="none" stroke="#15140F" stroke-width="1.512" stroke-miterlimit="10"/></g></g></g>
+  <g transform="matrix(1 0 0 1 14.055 0)"><g mask="url(#me1)"><g transform="matrix(1 0 0 1 7.05 7.043)"><path d="M0 3.994L11.943 12.132L20.231 0" fill="none" stroke="#15140F" stroke-width="1.512" stroke-miterlimit="10"/></g></g></g>
+</svg>

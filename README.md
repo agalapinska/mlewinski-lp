@@ -1,12 +1,16 @@
 # Maciej Lewiński — Pimp My Analytics (landing)
 
-Statyczna strona główna Maciej Lewiński / Pimp My Analytics.
-Odwzorowanie szablonu **Claude Design → `templates/home-page/HomePage.dc.html`**
-(projekt „Maciej Lewiński Design System") jako samodzielny, responsywny HTML.
+Landing newslettera **Pimp My Analytics** (Maciej Lewiński) — samodzielny, responsywny HTML.
 
 ## Struktura repo
-- [`index.html`](index.html) — **jedyne źródło deployu**. Vanilla HTML/CSS/JS (logika DC przepisana na czysty JS: mega-menu, scroll-reveal, parallax, licznik wyników, marquee). Responsywne: desktop ≥1440 (1:1 z designem), tablet ≤1439, mobile ≤768.
-- [`assets/`](assets/) — grafiki i ikony **wspólne z szablonem** w Claude Design (te same nazwy plików: `hero.jpg`, `wyniki.jpg`, `schody.jpg`, `sygnet.svg`, `ikona-*.svg`, `logo-*`, `subskrybent.jpg`, …).
+- [`index.html`](index.html) — **jedyne źródło deployu**. Odwzorowanie 1:1 projektu Paper **„PMA Landing"** (`PimpMyAnalytics — Landing (v2)`, node `2CR-0`). Vanilla HTML/CSS: pełnoszerokościowe pasy kolorystyczne + kontener treści `max-width:1440px`, płynna typografia `clamp()`, breakpointy 1100 / 900 / 768. Sekcje: header, hero (highlight „zanim zrobią to inni"), social proof, „Cześć, jestem Maciek", „Trzy pytania" (3 karty + „+1"), czarna „Zobacz przykładowe tematy" (cytaty + zapis), opinie (żółte), „Nie wiesz czy to dla Ciebie" (tak/nie), „Marketing się zmienia" + karta „Psst, z Poznania" + kroki 1-2-3, czarna oferta (Newsletter/Kurs/Konsultacje/Szkolenia) + „Poznaj pełną ofertę", stopka z sygnetem ML.
+- [`home.html`](home.html) — **poprzednia** strona główna (agencyjny „Homepage-index" z Claude Design). Zachowana; nie jest podpięta pod deploy root.
+- [`assets/`](assets/) — grafiki i ikony: `logo.svg`, `sygnet.svg` (monogram ML), `maciek-mailstack.jpg` (foto autora), `avatar-1/2.jpg` (avatary subskrybentów), `icon-mail-eq.svg` (=✉), `ikona-*.svg` (ikony oferty), `logo-*` (loga klientów — placeholder), `linkedin.svg`, `x.svg`.
+
+## Paleta (z projektu Paper / KV)
+- Żółć primary `#FFC820` (header, highlight hero, „+1", przycisk „Chcę czytać", checki), żółć głęboka `#FEBF00` (opinie, karta „Psst", karty oferty, obwódka avatarów).
+- Tło strony `#F9F9F9`, biel `#FFFFFF`, off-white `#FFFEFA`, ink `#15140F` / `#111111`.
+- Font: **Inter** (400/500/600/700/800).
 
 ## Deploy (GitHub Pages)
 Źródło: `main` / `/` (root). **Każdy `git push` na `main` auto-redeployuje** (<1 min):
@@ -16,13 +20,8 @@ Odwzorowanie szablonu **Claude Design → `templates/home-page/HomePage.dc.html`
 git add -A && git commit -m "opis zmiany" && git push origin main
 ```
 
-## Sync z Claude Design
-Projekt design-systemu: `Maciej Lewiński Design System`
-(id `e1c176ba-5fc3-420b-8b11-e4a0519564f2`).
-- Źródło szablonu: `templates/home-page/HomePage.dc.html` (format DC, z runtime).
-- Breakpointy responsywne wpięte w szablon przez selektory `data-screen-label` + hook `.om-root` (spójne z tym repo).
-- Sync przez DesignSync MCP wymaga logowania `/design-login` w **interaktywnej** sesji `claude`.
-- Standalone-export z Claude Design to spakowany bundle (runtime, ekran „Unpacking…") — do publikacji na GitHub służy `index.html` z tego repo, nie bundle.
+## Podgląd lokalny
+`python3 -m http.server 4321 --directory .` (config w `.claude/launch.json`, ignorowany w git).
 
 ## Do podmiany przed publikacją produkcyjną
-Zdjęcia (hero/wyniki/schody/subskrybent), logo klientów, prawdziwe cytaty w sekcji „Opinie", teksty CTA/oferty, podpięcie mailingu (double opt-in + UTM).
+Loga klientów (placeholder), prawdziwe cytaty w „Opinie" (obecnie „Firma / Imię, Stanowisko"), podpięcie mailingu (double opt-in + UTM), linki nawigacji/stopki, Regulamin i Polityka Prywatności.
