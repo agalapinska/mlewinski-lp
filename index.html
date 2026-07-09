@@ -81,8 +81,11 @@
   /* ═══════════ HERO ═══════════ */
   .hero-in{display:flex;flex-direction:column;align-items:flex-start;gap:36px;padding-top:100px;padding-bottom:80px;}
   .hero-head{display:flex;flex-direction:column;align-items:flex-start;gap:8px;}
-  .hero-h1{font-size:clamp(34px,4.45vw,64px);line-height:1.15;letter-spacing:-0.02em;font-weight:700;color:var(--ink);}
-  .hero-hl{display:inline-block;border-radius:3px;padding:2px 8px;background:var(--yellow);font-size:clamp(34px,4.45vw,64px);line-height:1.2;letter-spacing:-0.02em;font-weight:700;color:var(--ink);}
+  .hero-h1{font-size:clamp(38px,5.35vw,76px);line-height:1.12;letter-spacing:-0.02em;font-weight:700;color:var(--ink);}
+  .hero-hl{display:inline-block;border-radius:3px;padding:2px 8px;color:var(--ink);font-size:clamp(38px,5.35vw,76px);line-height:1.2;letter-spacing:-0.02em;font-weight:700;
+    background-image:linear-gradient(var(--yellow),var(--yellow));background-repeat:no-repeat;background-position:left center;background-size:0% 100%;
+    transition:background-size 1s cubic-bezier(.65,0,.35,1);}
+  .hero-hl.is-in{background-size:100% 100%;}
   .hero-form{display:flex;flex-direction:column;align-items:flex-start;gap:14px;width:100%;max-width:1100px;}
   .hero .fineprint{max-width:840px;}
 
@@ -242,6 +245,10 @@
     .hdr-count{font-size:15px;}
     .btn-dark{height:42px;padding:0 18px;font-size:15px;}
     .hero-in{padding-top:48px;padding-bottom:56px;gap:28px;}
+    .subs-row{gap:10px;}
+    .av{width:34px;height:34px;}
+    .av+.av{margin-left:-10px;}
+    .subs-txt{font-size:15px;line-height:1.35;}
     .field-grid{flex-direction:column;align-items:stretch;}
     .field-col{flex:1 1 auto;}
     .btn-yellow{width:100%;flex:1 1 auto;}
@@ -281,7 +288,7 @@
 <section class="hero">
   <div class="wrap hero-in">
     <div class="hero-head">
-      <div class="hero-h1">Dowiedz się, co będzie działać <br>w marketingu,</div>
+      <div class="hero-h1">Dowiedz się, co będzie <br>działać w marketingu,</div>
       <span class="hero-hl">zanim zrobią to inni.</span>
     </div>
     <form class="hero-form" onsubmit="return false">
@@ -614,6 +621,10 @@
   var coverBar = document.getElementById('om-cover-bar');
   var coverTm = null;
   if(cover){ setTimeout(function(){ cover.classList.add('om-cover-hide'); }, 950); }
+
+  /* ---- podświetlenie hero „zanim zrobią to inni" — najazd żółtego od lewej do prawej ---- */
+  var heroHl = document.querySelector('.hero-hl');
+  if(heroHl){ setTimeout(function(){ heroHl.classList.add('is-in'); }, 1500); }
   if(coverBar){
     coverBar.addEventListener('mouseenter', function(){
       if(!cover.classList.contains('om-cover-hide') || coverTm) return;
