@@ -64,9 +64,8 @@
   .fld{width:100%;height:56px;padding:10px 16px;border:1px solid var(--line);background:var(--white);font-family:inherit;font-size:20px;line-height:1.2;color:var(--ink);outline:none;}
   .fld:focus{border-color:var(--ink);}
   .btn-yellow{flex:1 1 0;min-width:160px;height:56px;display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:0 26px;border:none;cursor:pointer;background:var(--yellow);font-family:inherit;font-size:20px;line-height:1;letter-spacing:.01em;font-weight:700;color:var(--ink);transition:background .2s ease;}
-  .btn-yellow img{height:32px;width:auto;flex-shrink:0;}
+  .btn-yellow img{height:42px;width:auto;flex-shrink:0;animation:om-env-slide 1.9s ease-in-out infinite;}
   .btn-yellow:hover{background:var(--yellow-hover);}
-  .btn-yellow:hover img{animation:om-env-slide 1.6s ease-in-out infinite;}
   .fineprint{margin:0;padding:12px 4px 8px 12px;font-size:13px;line-height:1.6;letter-spacing:.01em;color:var(--ink);text-decoration:underline;text-underline-offset:2px;}
 
   /* ═══════════ HEADER ═══════════ */
@@ -90,14 +89,14 @@
   .hero .fineprint{max-width:840px;}
 
   /* ═══════════ SOCIAL PROOF (marquee) ═══════════ */
-  .social{position:relative;overflow:hidden;padding:64px 0;}
-  .social-track-wrap{position:absolute;left:0;right:0;top:64px;bottom:64px;display:flex;align-items:center;overflow:hidden;}
+  .social{position:relative;overflow:hidden;padding:38px 0;}
+  .social-track-wrap{position:absolute;left:0;right:0;top:38px;bottom:38px;display:flex;align-items:center;overflow:hidden;}
   .mq-track{display:flex;align-items:center;gap:90px;width:max-content;padding-right:90px;animation:om-marquee 45s linear infinite;}
   .social:hover .mq-track{animation-play-state:paused;}
   .mq-track img{height:34px;width:auto;opacity:.5;filter:brightness(0);}
   .mq-track img.l-jw{height:44px;}
-  .social-count-box{position:relative;z-index:2;margin-left:auto;width:max-content;background:var(--bg);padding:16px 40px 16px 48px;}
-  .social-count{display:block;font-size:40px;font-weight:700;line-height:1.25;white-space:nowrap;color:var(--ink);}
+  .social-count-box{position:relative;z-index:2;margin-left:auto;width:max-content;background:var(--bg);padding:8px 24px 8px 40px;}
+  .social-count{display:block;font-size:20px;font-weight:700;line-height:1.2;white-space:nowrap;color:var(--ink);}
 
   /* ═══════════ AUTHOR ═══════════ */
   .author{background:var(--white);}
@@ -139,9 +138,12 @@
   /* ═══════════ TESTIMONIALS ═══════════ */
   .testi{background:var(--yellow);padding-top:120px;padding-bottom:120px;}
   .testi-h2{margin:0 0 64px;max-width:620px;font-size:clamp(28px,3.05vw,40px);line-height:1.25;font-weight:700;color:var(--ink);text-wrap:balance;}
-  .testi-row{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;}
+  .testi-row{display:flex;align-items:flex-start;gap:28px;}
   .qmark{font-size:64px;line-height:1;font-weight:700;color:var(--ink);flex-shrink:0;}
-  .tcard{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:8px;padding:8px 0;}
+  .testi-viewport{flex:1 1 0;min-width:0;overflow:hidden;}
+  .testi-track{display:flex;width:max-content;animation:om-marquee 42s linear infinite;}
+  .testi-row:hover .testi-track{animation-play-state:paused;}
+  .tcard{flex:0 0 360px;max-width:360px;margin-right:56px;display:flex;flex-direction:column;gap:8px;padding:8px 0;}
   .tcard-firma{font-size:20px;line-height:1.5;font-weight:600;color:var(--ink);}
   .tcard-quote{margin:8px 0 0;font-size:20px;line-height:1.6;font-weight:400;color:var(--ink);}
   .tcard-who{margin-top:32px;font-size:20px;line-height:1.4;font-weight:700;color:var(--ink);}
@@ -231,14 +233,13 @@
   @media (max-width:900px){
     .pcards{flex-wrap:wrap;}
     .pcard{flex:1 1 260px;}
-    .testi-row{flex-wrap:wrap;}
-    .tcard{flex:1 1 240px;}
-    .qmark{display:none;}
+    .tcard{flex:0 0 300px;max-width:300px;}
+    .qmark{font-size:48px;}
     .oferta-cards{flex-wrap:wrap;}
     .ocard{flex:1 1 240px;}
   }
   @media (max-width:768px){
-    body{--pad:20px;}
+    body{--pad:16px;}
     .hdr-in{padding-top:16px;padding-bottom:16px;flex-wrap:wrap;gap:12px;}
     .hdr-logo{height:26px;}
     .hdr-right{gap:12px;flex-wrap:nowrap;}
@@ -252,7 +253,10 @@
     .field-grid{flex-direction:column;align-items:stretch;}
     .field-col{flex:1 1 auto;}
     .btn-yellow{width:100%;flex:1 1 auto;}
-    .social-count{font-size:30px;}
+    .social-count{font-size:18px;}
+    .testi-row{gap:14px;}
+    .tcard{flex:0 0 250px;max-width:250px;margin-right:28px;}
+    .qmark{font-size:40px;}
     .author-in{flex-direction:column-reverse;gap:32px;padding:64px 0;}
     .author-txt{flex-basis:auto;width:100%;}
     .author-photo{flex-basis:auto;width:100%;max-width:360px;height:440px;align-self:center;}
@@ -433,20 +437,39 @@
   </div>
   <div class="wrap testi-row reveal">
     <span class="qmark">"</span>
-    <div class="tcard">
-      <span class="tcard-firma">Firma</span>
-      <p class="tcard-quote">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
-      <span class="tcard-who">Imię, Stanowisko</span>
-    </div>
-    <div class="tcard">
-      <span class="tcard-firma">Firma</span>
-      <p class="tcard-quote">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
-      <span class="tcard-who">Imię, Stanowisko</span>
-    </div>
-    <div class="tcard">
-      <span class="tcard-firma">Firma</span>
-      <p class="tcard-quote">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
-      <span class="tcard-who">Imię, Stanowisko</span>
+    <div class="testi-viewport">
+      <div class="testi-track">
+        <div class="tcard">
+          <span class="tcard-firma">Firma</span>
+          <p class="tcard-quote">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
+          <span class="tcard-who">Imię, Stanowisko</span>
+        </div>
+        <div class="tcard">
+          <span class="tcard-firma">Firma</span>
+          <p class="tcard-quote">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
+          <span class="tcard-who">Imię, Stanowisko</span>
+        </div>
+        <div class="tcard">
+          <span class="tcard-firma">Firma</span>
+          <p class="tcard-quote">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
+          <span class="tcard-who">Imię, Stanowisko</span>
+        </div>
+        <div class="tcard" aria-hidden="true">
+          <span class="tcard-firma">Firma</span>
+          <p class="tcard-quote">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
+          <span class="tcard-who">Imię, Stanowisko</span>
+        </div>
+        <div class="tcard" aria-hidden="true">
+          <span class="tcard-firma">Firma</span>
+          <p class="tcard-quote">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
+          <span class="tcard-who">Imię, Stanowisko</span>
+        </div>
+        <div class="tcard" aria-hidden="true">
+          <span class="tcard-firma">Firma</span>
+          <p class="tcard-quote">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
+          <span class="tcard-who">Imię, Stanowisko</span>
+        </div>
+      </div>
     </div>
     <span class="qmark">"</span>
   </div>
