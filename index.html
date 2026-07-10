@@ -51,7 +51,7 @@
   .om-flink:hover{background-size:100% 40%;}
   .om-arr{display:inline-block;}
   .arr-host:hover .om-arr{animation:om-arr-nudge .9s ease-in-out infinite;}
-  .om-cta{display:flex;align-items:center;width:100%;text-decoration:none;cursor:pointer;}
+  .om-cta{display:flex;align-items:center;width:100%;text-decoration:none;}
   .om-cta-fill{flex:0 1 40px;height:50px;background:var(--yellow);transition:flex-grow 1.1s cubic-bezier(.65,0,.35,1);}
   .om-cta:hover .om-cta-fill{flex-grow:1;}
   .om-cover{position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:500;background:var(--yellow);display:flex;align-items:center;justify-content:center;pointer-events:none;transform:translateY(0);transition:transform .6s cubic-bezier(.76,0,.24,1);}
@@ -577,31 +577,31 @@
   <div class="wrap oferta-in" style="padding-left: 40px; padding-right: 0px; gap: 64px; padding-bottom: 80px; padding-top: 80px">
     <div class="oferta-viewport">
     <div class="oferta-cards" style="gap: 20px; padding-right: 20px">
-      <a class="ocard arr-host" href="#zapis">
+      <div class="ocard arr-host">
         <div class="ocard-ico"><img src="assets/ikona-newsletter.svg" alt=""></div>
         <div class="ocard-body">
           <span class="ocard-t">Newsletter</span>
           <span class="ocard-d">Gotowe wskazówki do wdrożenia w swojej pracy</span>
         </div>
         <span class="ocard-cta"><b>Zapisz się</b> <span class="om-arr">↗</span></span>
-      </a>
-      <a class="ocard arr-host" href="#">
+      </div>
+      <div class="ocard arr-host">
         <div class="ocard-ico"><img src="assets/ikona-kurs.svg" alt=""></div>
         <div class="ocard-body">
           <span class="ocard-t">Kurs online</span>
           <span class="ocard-d">Zrozum GA4 i analitykę od podstaw</span>
         </div>
         <span class="ocard-cta"><b>Kup kurs</b> <span class="om-arr">↗</span></span>
-      </a>
-      <a class="ocard arr-host" href="#">
+      </div>
+      <div class="ocard arr-host">
         <div class="ocard-ico"><img src="assets/ikona-konsultacje-b.svg" alt=""></div>
         <div class="ocard-body">
           <span class="ocard-t">Konsultacje</span>
           <span class="ocard-d">Naprawmy to, co nie działa</span>
         </div>
         <span class="ocard-cta"><b>Umów się</b> <span class="om-arr">↗</span></span>
-      </a>
-      <a class="ocard arr-host" href="#">
+      </div>
+      <div class="ocard arr-host">
         <div class="ocard-ico"><img src="assets/ikona-szkolenia-b.svg" alt=""></div>
         <div class="ocard-body">
           <span class="ocard-t">Szkolenia</span>
@@ -611,32 +611,32 @@
           
         </div>
         <span class="ocard-cta"><b>Poznaj program</b> <span class="om-arr">↗</span></span>
-      </a>
-      <a class="ocard arr-host" href="#zapis" aria-hidden="true" tabIndex="-1">
+      </div>
+      <div class="ocard arr-host" aria-hidden="true">
         <div class="ocard-ico"><img src="assets/ikona-newsletter.svg" alt=""></div>
         <div class="ocard-body">
           <span class="ocard-t">Newsletter</span>
           <span class="ocard-d">Gotowe wskazówki do wdrożenia w swojej pracy</span>
         </div>
         <span class="ocard-cta"><b>Zapisz się</b> <span class="om-arr">↗</span></span>
-      </a>
-      <a class="ocard arr-host" href="#" aria-hidden="true" tabIndex="-1">
+      </div>
+      <div class="ocard arr-host" aria-hidden="true">
         <div class="ocard-ico"><img src="assets/ikona-kurs.svg" alt=""></div>
         <div class="ocard-body">
           <span class="ocard-t">Kurs online</span>
           <span class="ocard-d">Zrozum GA4 i analitykę od podstaw</span>
         </div>
         <span class="ocard-cta"><b>Kup kurs</b> <span class="om-arr">↗</span></span>
-      </a>
-      <a class="ocard arr-host" href="#" aria-hidden="true" tabIndex="-1">
+      </div>
+      <div class="ocard arr-host" aria-hidden="true">
         <div class="ocard-ico"><img src="assets/ikona-konsultacje-b.svg" alt=""></div>
         <div class="ocard-body">
           <span class="ocard-t">Konsultacje</span>
           <span class="ocard-d">Naprawmy to, co nie działa</span>
         </div>
         <span class="ocard-cta"><b>Umów się</b> <span class="om-arr">↗</span></span>
-      </a>
-      <a class="ocard arr-host" href="#" aria-hidden="true" tabIndex="-1">
+      </div>
+      <div class="ocard arr-host" aria-hidden="true">
         <div class="ocard-ico"><img src="assets/ikona-szkolenia-b.svg" alt=""></div>
         <div class="ocard-body">
           <span class="ocard-t">Szkolenia</span>
@@ -644,13 +644,13 @@
           <span class="ocard-sub-t" style="font-weight: 600">Szkolenia cykliczne</span>
         </div>
         <span class="ocard-cta"><b>Poznaj program</b> <span class="om-arr">↗</span></span>
-      </a>
+      </div>
     </div>
     </div>
-    <a class="om-cta oferta-more arr-host" href="#">
+    <div class="om-cta oferta-more arr-host">
       <span class="om-cta-fill"></span>
       <span class="oferta-more-txt" style="font-weight: 500">Poznaj pełną ofertę&nbsp; <span class="om-arr">↗</span></span>
-    </a>
+    </div>
   </div>
 </section>
 
