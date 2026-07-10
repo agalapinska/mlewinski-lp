@@ -3,9 +3,9 @@
 Landing newslettera **Pimp My Analytics** (Maciej Lewiński) — samodzielny, responsywny HTML.
 
 ## Struktura repo
-- [`index.html`](index.html) — **jedyne źródło deployu**. Odwzorowanie 1:1 projektu Paper **„PMA Landing"** (`PimpMyAnalytics — Landing (v2)`, node `2CR-0`). Vanilla HTML/CSS: pełnoszerokościowe pasy kolorystyczne + kontener treści `max-width:1440px`, płynna typografia `clamp()`, breakpointy 1100 / 900 / 768. Sekcje: header, hero (highlight „zanim zrobią to inni"), social proof, „Cześć, jestem Maciek", „Trzy pytania" (3 karty + „+1"), czarna „Zobacz przykładowe tematy" (cytaty + zapis), opinie (żółte), „Nie wiesz czy to dla Ciebie" (tak/nie), „Marketing się zmienia" + karta „Psst, z Poznania" + kroki 1-2-3, czarna oferta (Newsletter/Kurs/Konsultacje/Szkolenia) + „Poznaj pełną ofertę", stopka z sygnetem ML.
-- [`home.html`](home.html) — **poprzednia** strona główna (agencyjny „Homepage-index" z Claude Design). Zachowana; nie jest podpięta pod deploy root.
-- [`assets/`](assets/) — grafiki i ikony: `logo.svg`, `sygnet.svg` (monogram ML), `maciek-mailstack.jpg` (foto autora), `avatar-1/2.jpg` (avatary subskrybentów), `icon-mail-eq.svg` (=✉), `ikona-*.svg` (ikony oferty), `logo-*` (loga klientów — placeholder), `linkedin.svg`, `x.svg`.
+- [`index.html`](index.html) — **strona główna (root domeny)**. Agencyjny „Homepage-index" z Claude Design: hero „Zamieniam w zysk", mega-menu Oferta, scroll-reveal, parallax wyników, licznik, marquee opinii, stopka z sygnetem ML. Responsywne: desktop ≥1440 (1:1 z designem), tablet ≤1439, mobile ≤768.
+- [`newsletter.html`](newsletter.html) — **subpage newslettera** (`/newsletter.html`). Odwzorowanie 1:1 projektu Paper **„PMA Landing"** (`PimpMyAnalytics — Landing (v2)`, node `2CR-0`): hero (highlight „zanim zrobią to inni"), social proof, „Cześć, jestem Maciek", „Trzy pytania", czarna „Zobacz przykładowe tematy", opinie, „Nie wiesz czy to dla Ciebie", karta „Psst, z Poznania" + kroki 1-2-3, czarna oferta, stopka. Logo w nagłówku linkuje do strony głównej.
+- [`assets/`](assets/) — grafiki i ikony wspólne dla obu stron: `logo.svg`, `sygnet.svg` (monogram ML), zdjęcia (`hero.jpg`/`wyniki.jpg`/`schody.jpg`/`maciek-mailstack.jpg`), avatary, `ikona-*.svg`, `logo-*` (loga klientów — placeholder), `linkedin.svg`, `x.svg`.
 
 ## Paleta (z projektu Paper / KV)
 - Żółć primary `#FFC820` (header, highlight hero, „+1", przycisk „Chcę czytać", checki), żółć głęboka `#FEBF00` (opinie, karta „Psst", karty oferty, obwódka avatarów).
