@@ -30,6 +30,16 @@
   a.om-send:hover .om-env { animation: om-env-slide 1.6s ease-in-out infinite; }
   a.om-flink { background: linear-gradient(#FEBF00, #FEBF00) no-repeat 0 0; background-size: 0% 100%; transition: background-size 0.3s ease; }
   a.om-flink:hover { background-size: 100% 100%; }
+  /* opinie: pionowe marquee — kolumny 1 i 3 jadą w dół, środkowa w górę */
+  @keyframes om-col-down { from { transform: translateY(-50%); } to { transform: translateY(0); } }
+  @keyframes om-col-up { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+  .rtb-col { height: 640px; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 72px, #000 calc(100% - 72px), transparent 100%); mask-image: linear-gradient(to bottom, transparent 0, #000 72px, #000 calc(100% - 72px), transparent 100%); }
+  .rtb-track { display: flex; flex-direction: column; }
+  .rtb-set { display: flex; flex-direction: column; }
+  .rtb-set > * { margin-bottom: 64px; }
+  .rtb-col.rtb-down .rtb-track { animation: om-col-down 44s linear infinite; }
+  .rtb-col.rtb-up .rtb-track { animation: om-col-up 44s linear infinite; }
+  .rtb-cols:hover .rtb-track { animation-play-state: paused; }
   .om-res { transform: translateY(60px); opacity: 0; transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.6s ease; }
   .om-res.om-res-in { transform: none; opacity: 1; }
   .om-card h3 { width: max-content; padding: 2px 8px; margin-left: -8px; background: linear-gradient(#FEBF00, #FEBF00) no-repeat 0 0; background-size: 0% 100%; transition: background-size 0.35s ease; }
@@ -92,7 +102,8 @@
 
   @media (max-width: 900px){
     .nl1-card, .nl2-card { flex-direction: column !important; }
-    .rtb-grid { grid-template-columns: 1fr 1fr !important; }
+    .rtb-cols { grid-template-columns: 1fr 1fr !important; }
+    .rtb-col:nth-child(3) { display: none !important; }
   }
 
   @media (max-width: 768px){
@@ -154,7 +165,9 @@
     /* ściana opinii + logo */
     .sec-rtb { padding: 56px 20px !important; }
     .sec-rtb h2 { font-size: 30px !important; }
-    .rtb-grid { grid-template-columns: 1fr !important; gap: 14px !important; margin-top: 40px !important; }
+    .rtb-cols { grid-template-columns: 1fr !important; gap: 0 !important; margin-top: 40px !important; }
+    .rtb-col:nth-child(2), .rtb-col:nth-child(3) { display: none !important; }
+    .rtb-col { height: 540px !important; }
 
     /* poznańska stopka oszczędnościowa */
     .sec-nl2 { padding: 24px 20px 72px !important; }
@@ -380,39 +393,126 @@
   <!-- ══════════ OPINIE + LOGOTYPY — ŚCIANA ══════════ -->
   <section class="sec-rtb" style="background: #FEBF00; padding: 120px 100px 120px 100px;">
     <h2 style="margin: 0; max-width: 620px; font-size: 40px; font-weight: 700; line-height: 1.25; color: #0E0E0E; text-wrap: balance;">Co mówią ci, którzy już nie wróżą z&nbsp;danych?</h2>
-    <div class="rtb-grid" style="margin-top: 64px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: stretch;">
-      <div style="background: #FFFEFA; padding: 32px; display: flex; flex-direction: column; gap: 24px;">
-        <p style="margin: 0; flex: 1 1 auto; font-size: 19px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">&bdquo;Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.&rdquo;</p>
-        <div><span style="display: block; font-size: 18px; font-weight: 700; color: #0E0E0E;">Imię, Stanowisko</span><span style="display: block; margin-top: 2px; font-size: 16px; font-weight: 400; color: #535862;">Firma</span></div>
+    <div class="rtb-cols" style="margin-top: 64px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 64px;">
+      <div class="rtb-col rtb-down">
+        <div class="rtb-track">
+          <div class="rtb-set">
+            <div style="display: flex; flex-direction: column;">
+              <span style="font-size: 20px; font-weight: 600; line-height: 1.5; color: #0E0E0E;">Firma</span>
+              <p style="margin: 16px 0 0 0; font-size: 20px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
+              <span style="margin-top: 40px; font-size: 20px; font-weight: 700; line-height: 1.4; color: #0E0E0E;">Imię, Stanowisko</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; min-height: 88px;">
+              <img src="assets/logo-jack-wolfskin.png" alt="Jack Wolfskin" style="height: 56px; width: auto; filter: brightness(0); opacity: 0.85;">
+            </div>
+            <div style="display: flex; flex-direction: column;">
+              <span style="font-size: 20px; font-weight: 600; line-height: 1.5; color: #0E0E0E;">Firma</span>
+              <p style="margin: 16px 0 0 0; font-size: 20px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
+              <span style="margin-top: 40px; font-size: 20px; font-weight: 700; line-height: 1.4; color: #0E0E0E;">Imię, Stanowisko</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; min-height: 88px;">
+              <img src="assets/logo-xtb.svg" alt="XTB" style="height: 34px; width: auto; filter: brightness(0); opacity: 0.85;">
+            </div>
+          </div>
+          <div class="rtb-set" aria-hidden="true">
+            <div style="display: flex; flex-direction: column;">
+              <span style="font-size: 20px; font-weight: 600; line-height: 1.5; color: #0E0E0E;">Firma</span>
+              <p style="margin: 16px 0 0 0; font-size: 20px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
+              <span style="margin-top: 40px; font-size: 20px; font-weight: 700; line-height: 1.4; color: #0E0E0E;">Imię, Stanowisko</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; min-height: 88px;">
+              <img src="assets/logo-jack-wolfskin.png" alt="" style="height: 56px; width: auto; filter: brightness(0); opacity: 0.85;">
+            </div>
+            <div style="display: flex; flex-direction: column;">
+              <span style="font-size: 20px; font-weight: 600; line-height: 1.5; color: #0E0E0E;">Firma</span>
+              <p style="margin: 16px 0 0 0; font-size: 20px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
+              <span style="margin-top: 40px; font-size: 20px; font-weight: 700; line-height: 1.4; color: #0E0E0E;">Imię, Stanowisko</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; min-height: 88px;">
+              <img src="assets/logo-xtb.svg" alt="" style="height: 34px; width: auto; filter: brightness(0); opacity: 0.85;">
+            </div>
+          </div>
+        </div>
       </div>
-      <div style="background: #FFFEFA; padding: 32px; display: flex; flex-direction: column; gap: 24px;">
-        <p style="margin: 0; flex: 1 1 auto; font-size: 19px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">&bdquo;Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.&rdquo;</p>
-        <div><span style="display: block; font-size: 18px; font-weight: 700; color: #0E0E0E;">Imię, Stanowisko</span><span style="display: block; margin-top: 2px; font-size: 16px; font-weight: 400; color: #535862;">Firma</span></div>
+      <div class="rtb-col rtb-up">
+        <div class="rtb-track">
+          <div class="rtb-set">
+            <div style="display: flex; flex-direction: column;">
+              <span style="font-size: 20px; font-weight: 600; line-height: 1.5; color: #0E0E0E;">Firma</span>
+              <p style="margin: 16px 0 0 0; font-size: 20px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
+              <span style="margin-top: 40px; font-size: 20px; font-weight: 700; line-height: 1.4; color: #0E0E0E;">Imię, Stanowisko</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; min-height: 88px;">
+              <img src="assets/logo-decathlon.png" alt="Decathlon" style="height: 32px; width: auto; filter: brightness(0); opacity: 0.85;">
+            </div>
+            <div style="display: flex; flex-direction: column;">
+              <span style="font-size: 20px; font-weight: 600; line-height: 1.5; color: #0E0E0E;">Firma</span>
+              <p style="margin: 16px 0 0 0; font-size: 20px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
+              <span style="margin-top: 40px; font-size: 20px; font-weight: 700; line-height: 1.4; color: #0E0E0E;">Imię, Stanowisko</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; min-height: 88px;">
+              <img src="assets/logo-jack-wolfskin.png" alt="Jack Wolfskin" style="height: 56px; width: auto; filter: brightness(0); opacity: 0.85;">
+            </div>
+          </div>
+          <div class="rtb-set" aria-hidden="true">
+            <div style="display: flex; flex-direction: column;">
+              <span style="font-size: 20px; font-weight: 600; line-height: 1.5; color: #0E0E0E;">Firma</span>
+              <p style="margin: 16px 0 0 0; font-size: 20px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
+              <span style="margin-top: 40px; font-size: 20px; font-weight: 700; line-height: 1.4; color: #0E0E0E;">Imię, Stanowisko</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; min-height: 88px;">
+              <img src="assets/logo-decathlon.png" alt="" style="height: 32px; width: auto; filter: brightness(0); opacity: 0.85;">
+            </div>
+            <div style="display: flex; flex-direction: column;">
+              <span style="font-size: 20px; font-weight: 600; line-height: 1.5; color: #0E0E0E;">Firma</span>
+              <p style="margin: 16px 0 0 0; font-size: 20px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
+              <span style="margin-top: 40px; font-size: 20px; font-weight: 700; line-height: 1.4; color: #0E0E0E;">Imię, Stanowisko</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; min-height: 88px;">
+              <img src="assets/logo-jack-wolfskin.png" alt="" style="height: 56px; width: auto; filter: brightness(0); opacity: 0.85;">
+            </div>
+          </div>
+        </div>
       </div>
-      <div style="display: flex; align-items: center; justify-content: center; min-height: 140px; padding: 24px;">
-        <img src="assets/logo-jack-wolfskin.png" alt="Jack Wolfskin" style="height: 62px; width: auto; filter: brightness(0); opacity: 0.85;">
-      </div>
-      <div style="display: flex; align-items: center; justify-content: center; min-height: 140px; padding: 24px;">
-        <img src="assets/logo-xtb.svg" alt="XTB" style="height: 40px; width: auto; filter: brightness(0); opacity: 0.85;">
-      </div>
-      <div style="background: #FFFEFA; padding: 32px; display: flex; flex-direction: column; gap: 24px;">
-        <p style="margin: 0; flex: 1 1 auto; font-size: 19px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">&bdquo;Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.&rdquo;</p>
-        <div><span style="display: block; font-size: 18px; font-weight: 700; color: #0E0E0E;">Imię, Stanowisko</span><span style="display: block; margin-top: 2px; font-size: 16px; font-weight: 400; color: #535862;">Firma</span></div>
-      </div>
-      <div style="background: #FFFEFA; padding: 32px; display: flex; flex-direction: column; gap: 24px;">
-        <p style="margin: 0; flex: 1 1 auto; font-size: 19px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">&bdquo;Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.&rdquo;</p>
-        <div><span style="display: block; font-size: 18px; font-weight: 700; color: #0E0E0E;">Imię, Stanowisko</span><span style="display: block; margin-top: 2px; font-size: 16px; font-weight: 400; color: #535862;">Firma</span></div>
-      </div>
-      <div style="background: #FFFEFA; padding: 32px; display: flex; flex-direction: column; gap: 24px;">
-        <p style="margin: 0; flex: 1 1 auto; font-size: 19px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">&bdquo;Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.&rdquo;</p>
-        <div><span style="display: block; font-size: 18px; font-weight: 700; color: #0E0E0E;">Imię, Stanowisko</span><span style="display: block; margin-top: 2px; font-size: 16px; font-weight: 400; color: #535862;">Firma</span></div>
-      </div>
-      <div style="display: flex; align-items: center; justify-content: center; min-height: 140px; padding: 24px;">
-        <img src="assets/logo-decathlon.png" alt="Decathlon" style="height: 34px; width: auto; filter: brightness(0); opacity: 0.85;">
-      </div>
-      <div style="background: #FFFEFA; padding: 32px; display: flex; flex-direction: column; gap: 24px;">
-        <p style="margin: 0; flex: 1 1 auto; font-size: 19px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">&bdquo;Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.&rdquo;</p>
-        <div><span style="display: block; font-size: 18px; font-weight: 700; color: #0E0E0E;">Imię, Stanowisko</span><span style="display: block; margin-top: 2px; font-size: 16px; font-weight: 400; color: #535862;">Firma</span></div>
+      <div class="rtb-col rtb-down">
+        <div class="rtb-track">
+          <div class="rtb-set">
+            <div style="display: flex; flex-direction: column;">
+              <span style="font-size: 20px; font-weight: 600; line-height: 1.5; color: #0E0E0E;">Firma</span>
+              <p style="margin: 16px 0 0 0; font-size: 20px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
+              <span style="margin-top: 40px; font-size: 20px; font-weight: 700; line-height: 1.4; color: #0E0E0E;">Imię, Stanowisko</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; min-height: 88px;">
+              <img src="assets/logo-xtb.svg" alt="XTB" style="height: 34px; width: auto; filter: brightness(0); opacity: 0.85;">
+            </div>
+            <div style="display: flex; flex-direction: column;">
+              <span style="font-size: 20px; font-weight: 600; line-height: 1.5; color: #0E0E0E;">Firma</span>
+              <p style="margin: 16px 0 0 0; font-size: 20px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
+              <span style="margin-top: 40px; font-size: 20px; font-weight: 700; line-height: 1.4; color: #0E0E0E;">Imię, Stanowisko</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; min-height: 88px;">
+              <img src="assets/logo-decathlon.png" alt="Decathlon" style="height: 32px; width: auto; filter: brightness(0); opacity: 0.85;">
+            </div>
+          </div>
+          <div class="rtb-set" aria-hidden="true">
+            <div style="display: flex; flex-direction: column;">
+              <span style="font-size: 20px; font-weight: 600; line-height: 1.5; color: #0E0E0E;">Firma</span>
+              <p style="margin: 16px 0 0 0; font-size: 20px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
+              <span style="margin-top: 40px; font-size: 20px; font-weight: 700; line-height: 1.4; color: #0E0E0E;">Imię, Stanowisko</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; min-height: 88px;">
+              <img src="assets/logo-xtb.svg" alt="" style="height: 34px; width: auto; filter: brightness(0); opacity: 0.85;">
+            </div>
+            <div style="display: flex; flex-direction: column;">
+              <span style="font-size: 20px; font-weight: 600; line-height: 1.5; color: #0E0E0E;">Firma</span>
+              <p style="margin: 16px 0 0 0; font-size: 20px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">Pokażę Ci, jak czytać i rozumieć dane Twojej kampanii. Wytłumaczę, jak podejmować decyzje na ich podstawie.</p>
+              <span style="margin-top: 40px; font-size: 20px; font-weight: 700; line-height: 1.4; color: #0E0E0E;">Imię, Stanowisko</span>
+            </div>
+            <div style="display: flex; align-items: center; justify-content: center; min-height: 88px;">
+              <img src="assets/logo-decathlon.png" alt="" style="height: 32px; width: auto; filter: brightness(0); opacity: 0.85;">
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -465,7 +565,7 @@
   </section>
 
   <!-- ══════════ STOPKA ══════════ -->
-  <footer id="kontakt" style="position: relative; overflow: hidden; background: #F7F4EC; border-top: 1px solid #E8E4D6; height: 673px;">
+  <footer id="kontakt" style="position: relative; overflow: hidden; background: #F5F5F5; border-top: 1px solid #E9EAEB; height: 673px;">
     <div style="position: absolute; left: 340px; top: 138px; display: flex; flex-direction: row; gap: 86px; align-items: flex-start;">
       <a href="#" class="om-flink" style="font-size: 20px; font-weight: 700; line-height: 1.5; white-space: nowrap; color: #0E0E0E; text-decoration: none;">Strona główna</a>
       <a href="newsletter.html" class="om-flink" style="font-size: 20px; font-weight: 700; line-height: 1.5; white-space: nowrap; color: #0E0E0E; text-decoration: none;">Newsletter</a>
