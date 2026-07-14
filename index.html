@@ -9,27 +9,35 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,600&display=swap" rel="stylesheet">
 <style>
-  html { scroll-snap-type: y proximity; }
   @keyframes om-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   /* mega menu: żółte tło otwiera się płynnie od góry do dołu */
   @keyframes om-menu-open { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0% 0); } }
   @keyframes om-menu-fade { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
+  /* scrim: po otwarciu menu reszta strony lekko się wyszarza; klik w scrim zamyka menu */
+  #om-scrim { position: fixed; inset: 0; z-index: 90; background: rgba(14, 14, 14, 0.4); opacity: 0; transition: opacity 0.4s ease; cursor: pointer; }
+  #om-scrim.om-scrim-in { opacity: 1; }
   .om-menu { animation: om-menu-open 0.5s cubic-bezier(0.76, 0, 0.24, 1) both; }
   .om-menu > div:last-child { animation: om-menu-fade 0.45s ease 0.22s both; }
   .om-menu.om-menu-close > div:last-child { animation: om-menu-fade 0.3s ease both reverse; }
   .om-menu.om-menu-close { animation: om-menu-open 0.45s cubic-bezier(0.76, 0, 0.24, 1) 0.18s both reverse; }
-  .om-mcard .om-mico { height: 224px; display: flex; align-items: flex-end; transition: height 0.4s cubic-bezier(0.65, 0, 0.35, 1); }
-  .om-mcard .om-mico img { width: 224px; height: 224px; max-width: 100%; transition: width 0.4s cubic-bezier(0.65, 0, 0.35, 1), height 0.4s cubic-bezier(0.65, 0, 0.35, 1); }
+  /* mega menu: karty — domyślnie ikona + nagłówek; hover zmniejsza ikonę i odsłania opis + CTA */
+  .om-mcard .om-mico { height: 200px; display: flex; align-items: flex-end; transition: height 0.4s cubic-bezier(0.65, 0, 0.35, 1); }
+  .om-mcard .om-mico img { width: 176px; height: 176px; max-width: 100%; transition: width 0.4s cubic-bezier(0.65, 0, 0.35, 1), height 0.4s cubic-bezier(0.65, 0, 0.35, 1); }
   .om-mcard:hover .om-mico { height: 72px; }
   .om-mcard:hover .om-mico img { width: 72px; height: 72px; }
   .om-mcard .om-mbody { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.35s ease; }
   .om-mcard:hover .om-mbody { max-height: 280px; opacity: 1; transition: max-height 0.45s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.35s ease 0.12s; }
-  a.om-cta .om-cta-fill { flex: 0 1 40px; transition: flex-grow 1.1s cubic-bezier(0.65, 0, 0.35, 1); }
-  a.om-cta:hover .om-cta-fill { flex-grow: 1; }
+  /* pełnoszerokościowy panel-CTA oferty: żółte tło, czarny tekst, białe koło ze strzałką ↗ */
+  .om-banner-circle { transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
+  a.om-banner:hover .om-banner-circle { transform: scale(1.07); }
+  a.om-banner:hover .om-arr { animation: om-arr-nudge 0.9s ease-in-out infinite; }
   @keyframes om-env-slide { 0% { transform: translateX(0); } 28% { transform: translateX(12px); } 52% { transform: translateX(0); } 100% { transform: translateX(0); } }
   a.om-send:hover .om-env { animation: om-env-slide 1.6s ease-in-out infinite; }
   a.om-flink { background: linear-gradient(#FEBF00, #FEBF00) no-repeat 0 0; background-size: 0% 100%; transition: background-size 0.3s ease; }
   a.om-flink:hover { background-size: 100% 100%; }
+  /* stopka jest żółta — hover-podkreślenie w niej czarne, inaczej niewidoczne */
+  footer a.om-flink { background-image: linear-gradient(#0E0E0E, #0E0E0E); background-position: 0 100%; background-size: 0% 2px; }
+  footer a.om-flink:hover { background-size: 100% 2px; }
   /* opinie: pionowe marquee — kolumny 1 i 3 jadą w dół, środkowa w górę */
   @keyframes om-col-down { from { transform: translateY(-50%); } to { transform: translateY(0); } }
   @keyframes om-col-up { from { transform: translateY(0); } to { transform: translateY(-50%); } }
@@ -91,7 +99,7 @@
     .sec-nl1, .sec-oferta, .sec-wyniki, .sec-rtb, .sec-nl2 { padding-left: 40px !important; padding-right: 40px !important; }
     .nl1-card, .nl2-card { gap: 56px !important; }
     .nl1-card { padding: 28px 24px !important; }
-    .nl2-card { padding: 56px 48px !important; }
+    .nl2-card { padding: 28px 24px !important; }
 
     /* stopka: rozkład absolutny działa tylko na 1440 — flow */
     body > div > footer { height: auto !important; padding: 72px 40px 56px !important; display: flex !important; flex-direction: column !important; gap: 48px !important; }
@@ -118,7 +126,7 @@
     /* mega menu (gdyby otwarte) */
     #om-menu > div:first-child { padding: 0 18px !important; height: auto !important; flex-wrap: wrap !important; gap: 12px !important; }
     #om-menu > div:last-child { flex-direction: column !important; padding: 24px 18px 32px !important; gap: 12px !important; }
-    #om-menu > div:last-child > a { flex: 1 1 auto !important; }
+    #om-menu > div:last-child > a { flex: 1 1 auto !important; min-height: 0 !important; }
     #om-menu .om-mico { height: 88px !important; }
     #om-menu .om-mico img { width: 88px !important; height: 88px !important; }
     #om-menu .om-mbody { max-height: none !important; opacity: 1 !important; }
@@ -153,8 +161,10 @@
     .sec-oferta .om-card h3 { font-size: 26px !important; margin-top: 24px !important; }
     .sec-oferta .om-card > span { padding-top: 20px !important; font-size: 20px !important; }
     .sec-oferta h2 { font-size: 30px !important; }
-    .sec-oferta .om-cta { height: auto !important; margin-bottom: 0 !important; }
-    .sec-oferta .om-cta span:last-child { font-size: 22px !important; margin-left: 20px !important; }
+    .sec-oferta .om-banner { min-height: 200px !important; padding: 20px 22px 26px 22px !important; gap: 36px !important; }
+    .sec-oferta .om-banner-txt { font-size: 34px !important; }
+    .sec-oferta .om-banner-circle { width: 68px !important; height: 68px !important; }
+    .sec-oferta .om-banner-circle .om-arr { font-size: 30px !important; }
 
     /* wyniki */
     .sec-wyniki { padding: 56px 20px !important; }
@@ -172,7 +182,7 @@
 
     /* poznańska stopka oszczędnościowa */
     .sec-nl2 { padding: 24px 20px 72px !important; }
-    .nl2-card { padding: 32px 24px !important; gap: 36px !important; }
+    .nl2-card { padding: 16px 12px !important; gap: 36px !important; }
     .nl2-card h2 { font-size: 28px !important; }
 
     /* stopka */
@@ -204,6 +214,7 @@
   </header>
 
   <!-- ══════════ MEGA MENU — OFERTA ══════════ -->
+  <div id="om-scrim" style="display: none;"></div>
   <div id="om-menu" class="om-menu" style="display: none; position: absolute; left: 0; right: 0; top: 0; z-index: 100; background: #FEBF00; box-shadow: 0 40px 80px rgba(0,0,0,0.15);">
     <div style="padding: 0 100px; height: 104px; display: flex; align-items: center; gap: 64px;">
       <img src="assets/logo.svg" alt="Maciej Lewiński" style="width: 207px; height: 36px; flex-shrink: 0;">
@@ -224,7 +235,7 @@
         <h3 style="margin: 24px 0 0 0; font-size: 26px; font-weight: 600; line-height: 1.3; color: #0E0E0E;">Newsletter</h3>
         <div class="om-mbody">
           <p style="margin: 16px 0 0 0; font-size: 16px; font-weight: 400; line-height: 1.5; color: #0E0E0E;">Gotowe wskazówki do&nbsp;wdrożenia w swojej pracy</p>
-          <span style="display: inline-block; margin-top: 24px; font-size: 20px; font-weight: 600; color: #0E0E0E;">Zapisz się&nbsp; ↗</span>
+          <span style="display: inline-block; margin-top: 24px; font-size: 20px; font-weight: 600; color: #0E0E0E; text-decoration: underline; text-underline-offset: 4px;">Zapisz się</span>
         </div>
       </a>
       <a href="#oferta" class="om-mcard mm-close" style="flex: 1 1 0; display: flex; flex-direction: column; min-height: 408px; color: inherit; text-decoration: none; cursor: pointer;">
@@ -232,7 +243,7 @@
         <h3 style="margin: 24px 0 0 0; font-size: 26px; font-weight: 600; line-height: 1.3; color: #0E0E0E;">Kurs online</h3>
         <div class="om-mbody">
           <p style="margin: 16px 0 0 0; font-size: 16px; font-weight: 400; line-height: 1.5; color: #0E0E0E;">Zrozum GA4 i analitykę od podstaw</p>
-          <span style="display: inline-block; margin-top: 24px; font-size: 20px; font-weight: 600; color: #0E0E0E;">Kup kurs&nbsp; ↗</span>
+          <span style="display: inline-block; margin-top: 24px; font-size: 20px; font-weight: 600; color: #0E0E0E; text-decoration: underline; text-underline-offset: 4px;">Kup kurs</span>
         </div>
       </a>
       <a href="#kontakt" class="om-mcard mm-close" style="flex: 1 1 0; display: flex; flex-direction: column; min-height: 408px; color: inherit; text-decoration: none; cursor: pointer;">
@@ -240,7 +251,7 @@
         <h3 style="margin: 24px 0 0 0; font-size: 26px; font-weight: 600; line-height: 1.3; color: #0E0E0E;">Konsultacje</h3>
         <div class="om-mbody">
           <p style="margin: 16px 0 0 0; font-size: 16px; font-weight: 400; line-height: 1.5; color: #0E0E0E;">Naprawmy to, co nie działa</p>
-          <span style="display: inline-block; margin-top: 24px; font-size: 20px; font-weight: 600; color: #0E0E0E;">Umów się&nbsp; ↗</span>
+          <span style="display: inline-block; margin-top: 24px; font-size: 20px; font-weight: 600; color: #0E0E0E; text-decoration: underline; text-underline-offset: 4px;">Umów się</span>
         </div>
       </a>
       <a href="#oferta" class="om-mcard mm-close" style="flex: 1 1 0; display: flex; flex-direction: column; min-height: 408px; color: inherit; text-decoration: none; cursor: pointer;">
@@ -249,7 +260,7 @@
         <div class="om-mbody">
           <p style="margin: 16px 0 0 0; font-size: 16px; line-height: 1.5; color: #0E0E0E;"><strong style="font-weight: 600;">Szkolenia dedykowane</strong><br>Ułożę i przeprowadzę je specjalnie dla Ciebie.</p>
           <p style="margin: 12px 0 0 0; font-size: 16px; line-height: 1.5; color: #0E0E0E;"><strong style="font-weight: 600;">Szkolenia cykliczne</strong><br>Nauczysz się analityki w&nbsp;praktyce.</p>
-          <span style="display: inline-block; margin-top: 24px; font-size: 20px; font-weight: 600; color: #0E0E0E;">Poznaj program&nbsp; ↗</span>
+          <span style="display: inline-block; margin-top: 24px; font-size: 20px; font-weight: 600; color: #0E0E0E; text-decoration: underline; text-underline-offset: 4px;">Poznaj program</span>
         </div>
       </a>
       <a href="#kontakt" class="om-mcard mm-close" style="flex: 1 1 0; display: flex; flex-direction: column; min-height: 408px; color: inherit; text-decoration: none; cursor: pointer;">
@@ -257,7 +268,7 @@
         <h3 style="margin: 24px 0 0 0; font-size: 26px; font-weight: 600; line-height: 1.3; color: #0E0E0E;">Audyt</h3>
         <div class="om-mbody">
           <p style="margin: 16px 0 0 0; font-size: 16px; font-weight: 400; line-height: 1.5; color: #0E0E0E;">Sprawdzę co nie działa, dlaczego i powiem co&nbsp;z&nbsp;tym zrobić.</p>
-          <span style="display: inline-block; margin-top: 24px; font-size: 20px; font-weight: 600; color: #0E0E0E;">Umów rozmowę&nbsp; ↗</span>
+          <span style="display: inline-block; margin-top: 24px; font-size: 20px; font-weight: 600; color: #0E0E0E; text-decoration: underline; text-underline-offset: 4px;">Umów rozmowę</span>
         </div>
       </a>
     </div>
@@ -338,7 +349,7 @@
   </section>
 
   <!-- ══════════ CZARNA SEKCJA ══════════ -->
-  <section id="o-mnie" style="width: max(100vw, 100%); margin-left: min(0px, calc((100% - 100vw) / 2)); height: 250vh; scroll-snap-align: start; background: #0E0E0E">
+  <section id="o-mnie" style="width: max(100vw, 100%); margin-left: min(0px, calc((100% - 100vw) / 2)); height: 250vh; background: #0E0E0E">
     <div style="position: sticky; top: 0; height: 100vh; box-sizing: border-box; display: flex; align-items: center; padding: 24px 9vw;">
       <p id="om-omnie" style="margin: 0; font-weight: 500; line-height: 1.75; letter-spacing: 0.005em; font-size: 2.78vw;"></p>
     </div>
@@ -367,9 +378,12 @@
         <span style="margin-top: auto; padding-top: 44px; font-size: 24px; font-weight: 600; color: #0E0E0E;">Zaproś mnie do siebie&nbsp; <span class="om-arr">↗</span></span>
       </a>
     </div>
-    <a href="#oferta" class="om-cta" style="margin-top: 64px; margin-bottom: -50px; display: flex; align-items: center; width: 100%; height: 150px; text-decoration: none;">
-      <span class="om-cta-fill" style="height: 50px; background: #FEBF00;"></span>
-      <span style="margin-left: 34px; font-size: 32px; font-weight: 600; line-height: 1; white-space: nowrap; color: #0E0E0E">Zobacz pełną ofertę&nbsp; ↗</span>
+    <a href="#oferta" class="om-banner" style="margin-top: 64px; display: flex; flex-direction: column; justify-content: space-between; gap: 56px; background: #FEBF00; padding: 32px 40px 40px 40px; min-height: 300px; text-decoration: none; box-sizing: border-box;">
+      <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.14em; color: #0E0E0E;">PEŁNA OFERTA</span>
+      <span style="display: flex; align-items: flex-end; justify-content: space-between; gap: 40px;">
+        <span class="om-banner-txt" style="font-size: clamp(48px, 5.8vw, 84px); font-weight: 600; line-height: 1.05; letter-spacing: -0.02em; color: #0E0E0E;">Zobacz pełną ofertę.</span>
+        <span class="om-banner-circle" style="width: 112px; height: 112px; border-radius: 50%; background: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;"><span class="om-arr" style="font-size: 46px; line-height: 1; font-weight: 600; color: #0E0E0E;">↗</span></span>
+      </span>
     </a>
   </section>
 
@@ -519,19 +533,28 @@
   </section>
 
   <!-- ══════════ POZNAŃSKA STOPKA OSZCZĘDNOŚCIOWA ══════════ -->
-  <section class="sec-nl2" style="padding: 96px 100px 140px 100px;">
-    <div class="nl2-card" style="background: #FFFFFF; border: 1px solid #ECE8DD; padding: 80px 88px; box-sizing: border-box; display: flex; flex-direction: row; gap: 88px; align-items: flex-start;">
+  <section class="sec-nl2" style="background: #FFFFFF; padding: 96px 100px 140px 100px;">
+    <div class="nl2-card" style="background: #FFFFFF; border: 1px solid #E9EAEB; padding: 40px 44px; box-sizing: border-box; display: flex; flex-direction: row; gap: 88px; align-items: flex-start;">
       <div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column;">
         <div style="display: flex; align-items: center;">
           <span style="display: inline-block; background: #FEBF00; padding: 8px 14px; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; color: #0E0E0E;">POZNAŃSKA STOPKA OSZCZĘDNOŚCIOWA</span>
         </div>
         <h2 style="margin: 32px 0 0 0; font-size: 46px; font-weight: 600; line-height: 1.2; letter-spacing: -0.015em; color: #0E0E0E;">Skoro wykorzystałeś już cały ten scroll, szkoda byłoby go zmarnować.</h2>
         <p style="margin: 28px 0 0 0; font-size: 20px; font-weight: 400; line-height: 1.6; color: #0E0E0E;"><span style="text-decoration: underline; text-decoration-color: #FEBF00; text-decoration-thickness: 5px; text-underline-offset: 6px;"><strong style="font-weight: 600;">Po poznańsku:</strong> wyciągnij z tej wizyty maksimum.</span></p>
-        <p style="margin: 12px 0 0 0; font-size: 20px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">W każdy ostatni czwartek miesiąca dostaniesz jeden konkretny materiał o analityce i marketingu.</p>
+        <div style="margin: 24px 0 0 0; display: flex; align-items: baseline; gap: 18px;">
+          <span style="font-size: 17px; font-weight: 500; letter-spacing: 0.06em; color: #717680;">pon</span>
+          <span style="font-size: 17px; font-weight: 500; letter-spacing: 0.06em; color: #717680;">wt</span>
+          <span style="font-size: 17px; font-weight: 500; letter-spacing: 0.06em; color: #717680;">śr</span>
+          <span style="font-size: 17px; font-weight: 600; letter-spacing: 0.06em; color: #0E0E0E; border-bottom: 4px solid #FEBF00; padding-bottom: 3px;">czw</span>
+          <span style="font-size: 17px; font-weight: 500; letter-spacing: 0.06em; color: #717680;">pt</span>
+          <span style="font-size: 17px; font-weight: 500; letter-spacing: 0.06em; color: #717680;">sob</span>
+          <span style="font-size: 17px; font-weight: 500; letter-spacing: 0.06em; color: #717680;">nd</span>
+        </div>
+        <p style="margin: 14px 0 0 0; font-size: 20px; font-weight: 400; line-height: 1.6; color: #0E0E0E;">W każdy <strong style="font-weight: 600;">ostatni czwartek</strong> miesiąca dostaniesz jeden konkretny materiał o analityce i marketingu.</p>
       </div>
       <div style="flex: 1 1 0; min-width: 0; display: flex; flex-direction: column;">
         <div style="display: flex; align-items: center; gap: 18px;">
-          <span style="width: 56px; height: 56px; border-radius: 50%; background: #FFF3D4; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;">
+          <span style="width: 56px; height: 56px; border-radius: 50%; background: #FEBF00; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;">
             <svg width="30" height="30" viewBox="0 0 32 32" fill="none">
               <circle cx="16" cy="11" r="4.2" stroke="#0E0E0E" stroke-width="1.9"></circle>
               <path d="M8.5 25 C8.5 20.9 11.8 18 16 18 C20.2 18 23.5 20.9 23.5 25" stroke="#0E0E0E" stroke-width="1.9" stroke-linecap="round" fill="none"></path>
@@ -544,6 +567,7 @@
           <p style="margin: 0; font-size: 20px; font-weight: 400; line-height: 1.5; color: #0E0E0E;">Ponad <strong style="font-weight: 600;">13 000</strong> marketerów i analityków już czyta ten newsletter.</p>
         </div>
         <form style="margin: 28px 0 0 0; display: flex; flex-direction: column; gap: 16px;">
+          <input type="text" placeholder="Imię" style="width: 100%; height: 60px; padding: 10px 18px; box-sizing: border-box; border: 1px solid #D6D3C8; outline: none; background: #FFFFFF; font-family: inherit; font-size: 18px; color: #0E0E0E;">
           <input type="email" placeholder="Twój adres e-mail" required style="width: 100%; height: 60px; padding: 10px 18px; box-sizing: border-box; border: 1px solid #D6D3C8; outline: none; background: #FFFFFF; font-family: inherit; font-size: 18px; color: #0E0E0E;">
           <button type="submit" class="btn-y2" style="height: 60px; border: none; cursor: pointer; background: #FEBF00; font-family: inherit; font-size: 19px; font-weight: 600; letter-spacing: 0.01em; color: #0E0E0E; transition: background 0.2s ease;">Nie marnuję scrolla&nbsp; →</button>
         </form>
@@ -556,7 +580,7 @@
   </section>
 
   <!-- ══════════ STOPKA ══════════ -->
-  <footer id="kontakt" style="position: relative; overflow: hidden; background: #F5F5F5; border-top: 1px solid #E9EAEB; height: 673px;">
+  <footer id="kontakt" style="position: relative; overflow: hidden; background: #FEBF00; height: 673px;">
     <div style="position: absolute; left: 340px; top: 138px; display: flex; flex-direction: row; gap: 86px; align-items: flex-start;">
       <a href="#" class="om-flink" style="font-size: 20px; font-weight: 600; line-height: 1.5; white-space: nowrap; color: #0E0E0E; text-decoration: none;">Strona główna</a>
       <a href="newsletter.html" class="om-flink" style="font-size: 20px; font-weight: 600; line-height: 1.5; white-space: nowrap; color: #0E0E0E; text-decoration: none;">Newsletter</a>
@@ -598,19 +622,24 @@
 
   /* ============ MEGA MENU ============ */
   var menu = document.getElementById('om-menu');
+  var scrim = document.getElementById('om-scrim');
   var menuTm = null;
   function menuOpenState(){ return menu.style.display === 'block' && !menu.classList.contains('om-menu-close'); }
   function openMenu(){
     if(menuTm){ clearTimeout(menuTm); menuTm = null; }
     menu.classList.remove('om-menu-close');
     menu.style.display = 'block';
-    void menu.offsetWidth; /* replay open animation */
+    scrim.style.display = 'block';
+    void menu.offsetWidth; /* replay open animation + start scrim fade */
+    scrim.classList.add('om-scrim-in');
   }
   function closeMenu(){
     if(menu.style.display !== 'block' || menu.classList.contains('om-menu-close')) return;
     menu.classList.add('om-menu-close');
-    menuTm = setTimeout(function(){ menu.style.display='none'; menu.classList.remove('om-menu-close'); menuTm=null; }, 660);
+    scrim.classList.remove('om-scrim-in');
+    menuTm = setTimeout(function(){ menu.style.display='none'; scrim.style.display='none'; menu.classList.remove('om-menu-close'); menuTm=null; }, 660);
   }
+  scrim.addEventListener('click', closeMenu);
   function toggleMenu(e){ if(e) e.preventDefault(); if(menuOpenState()) closeMenu(); else openMenu(); }
   var navOferta = document.getElementById('nav-oferta');
   if(navOferta) navOferta.addEventListener('click', toggleMenu);
