@@ -27,10 +27,14 @@
   .om-mcard:hover .om-mico img { width: 72px; height: 72px; }
   .om-mcard .om-mbody { max-height: 0; opacity: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.35s ease; }
   .om-mcard:hover .om-mbody { max-height: 280px; opacity: 1; transition: max-height 0.45s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.35s ease 0.12s; }
-  /* pełnoszerokościowy panel-CTA oferty: żółte tło, czarny tekst, białe koło ze strzałką ↗ */
-  .om-banner-circle { transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1); }
-  a.om-banner:hover .om-banner-circle { transform: scale(1.07); }
+  /* pełnoszerokościowy panel-CTA oferty: żółte tło, czarny tekst, białe koło ze strzałką ↗.
+     Hover: koło rośnie w kwadrat na pełną wysokość banneru (do krawędzi, przez padding). */
+  .om-banner-circle { position: absolute; right: 40px; bottom: 40px; width: 112px; height: 112px; border-radius: 50%; background: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; transition: width 0.5s cubic-bezier(0.65, 0, 0.35, 1), height 0.5s cubic-bezier(0.65, 0, 0.35, 1), right 0.5s cubic-bezier(0.65, 0, 0.35, 1), bottom 0.5s cubic-bezier(0.65, 0, 0.35, 1), border-radius 0.5s cubic-bezier(0.65, 0, 0.35, 1); }
+  a.om-banner:hover .om-banner-circle { width: 300px; height: 300px; right: 0; bottom: 0; border-radius: 0; }
+  .om-banner-circle .om-arr { font-size: 46px; line-height: 1; font-weight: 600; color: #0E0E0E; transition: font-size 0.5s cubic-bezier(0.65, 0, 0.35, 1); }
+  a.om-banner:hover .om-banner-circle .om-arr { font-size: 68px; }
   a.om-banner:hover .om-arr { animation: om-arr-nudge 0.9s ease-in-out infinite; }
+  @media (max-width: 1000px){ a.om-banner:hover .om-banner-circle { width: 240px; height: 240px; } }
   @keyframes om-env-slide { 0% { transform: translateX(0); } 28% { transform: translateX(12px); } 52% { transform: translateX(0); } 100% { transform: translateX(0); } }
   a.om-send:hover .om-env { animation: om-env-slide 1.6s ease-in-out infinite; }
   a.om-flink { background: linear-gradient(#FEBF00, #FEBF00) no-repeat 0 0; background-size: 0% 100%; transition: background-size 0.3s ease; }
@@ -162,9 +166,11 @@
     .sec-oferta .om-card > span { padding-top: 20px !important; font-size: 20px !important; }
     .sec-oferta h2 { font-size: 30px !important; }
     .sec-oferta .om-banner { min-height: 200px !important; padding: 20px 22px 26px 22px !important; gap: 36px !important; }
-    .sec-oferta .om-banner-txt { font-size: 34px !important; }
-    .sec-oferta .om-banner-circle { width: 68px !important; height: 68px !important; }
+    .sec-oferta .om-banner-txt { font-size: 34px !important; padding-right: 92px !important; }
+    .sec-oferta .om-banner-circle { width: 68px !important; height: 68px !important; right: 22px !important; bottom: 26px !important; }
+    .sec-oferta .om-banner:hover .om-banner-circle { width: 200px !important; height: 200px !important; right: 0 !important; bottom: 0 !important; }
     .sec-oferta .om-banner-circle .om-arr { font-size: 30px !important; }
+    .sec-oferta .om-banner:hover .om-banner-circle .om-arr { font-size: 44px !important; }
 
     /* wyniki */
     .sec-wyniki { padding: 56px 20px !important; }
@@ -378,12 +384,10 @@
         <span style="margin-top: auto; padding-top: 44px; font-size: 24px; font-weight: 600; color: #0E0E0E;">Zaproś mnie do siebie&nbsp; <span class="om-arr">↗</span></span>
       </a>
     </div>
-    <a href="#oferta" class="om-banner" style="margin-top: 64px; display: flex; flex-direction: column; justify-content: space-between; gap: 56px; background: #FEBF00; padding: 32px 40px 40px 40px; min-height: 300px; text-decoration: none; box-sizing: border-box;">
+    <a href="#oferta" class="om-banner" style="position: relative; margin-top: 64px; display: flex; flex-direction: column; justify-content: space-between; gap: 56px; background: #FEBF00; padding: 32px 40px 40px 40px; min-height: 300px; text-decoration: none; box-sizing: border-box;">
       <span style="font-size: 13px; font-weight: 600; letter-spacing: 0.14em; color: #0E0E0E;">PEŁNA OFERTA</span>
-      <span style="display: flex; align-items: flex-end; justify-content: space-between; gap: 40px;">
-        <span class="om-banner-txt" style="font-size: clamp(48px, 5.8vw, 84px); font-weight: 600; line-height: 1.05; letter-spacing: -0.02em; color: #0E0E0E;">Zobacz pełną ofertę.</span>
-        <span class="om-banner-circle" style="width: 112px; height: 112px; border-radius: 50%; background: #FFFFFF; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;"><span class="om-arr" style="font-size: 46px; line-height: 1; font-weight: 600; color: #0E0E0E;">↗</span></span>
-      </span>
+      <span class="om-banner-txt" style="display: block; padding-right: 180px; font-size: clamp(48px, 5.8vw, 84px); font-weight: 600; line-height: 1.05; letter-spacing: -0.02em; color: #0E0E0E;">Zobacz pełną ofertę.</span>
+      <span class="om-banner-circle"><span class="om-arr">↗</span></span>
     </a>
   </section>
 
